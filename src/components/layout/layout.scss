@@ -9,17 +9,19 @@
 .logo {
   display: flex;
   align-items: center;
-  margin-bottom: 25px;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 15px;
+  gap: 10px;
 
   h2 {
-    text-transform: uppercase;
     color: white;
     font-size: 27px;
   }
 
   img {
-    width: 60px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
   }
 }
 

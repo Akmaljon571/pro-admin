@@ -6,7 +6,7 @@ export const api = 'http://167.71.97.24/api';
 
 export const AdminPriveder = ({ children }) => {
   const [token, setToken] = useState(
-    JSON.parse(localStorage.getItem('admin_token')) || {},
+    JSON.parse(localStorage.getItem('admin_token')) || '',
   );
   const data = { token, setToken };
 

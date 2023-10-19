@@ -25,9 +25,10 @@ function LayoutPage({ children }) {
   }, [token, navigate]);
 
   const chiqish = () => {
-    setToken({});
+    setToken('');
     localStorage.clear();
   };
+
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
