@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -8,18 +8,18 @@ import { Layout, Menu, Button } from 'antd';
 import bg from '../../img/logo.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import useStart from '../../hooks/useStart';
+import { Admin } from '../../context';
 import './layout.scss';
 
 function LayoutPage({ children }) {
   const { Header, Sider, Content } = Layout;
   const [collapsed, setCollapsed] = useState(false);
-  const { token, setToken } = useStart();
+  const { token, setToken } = useContext(Admin);
   const path = useLocation().pathname;
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token || !token?.active) {
+    if (!token) {
       navigate('/login');
     }
   }, [token, navigate]);
