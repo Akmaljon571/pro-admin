@@ -7,7 +7,7 @@ function App() {
   const path = useLocation().pathname;
   return (
     <>
-      {path === '/' ? (
+      {path === '/' || path === '/course' ? (
         <Layout>
           <Routers />
         </Layout>

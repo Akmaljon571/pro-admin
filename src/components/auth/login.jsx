@@ -15,9 +15,9 @@ function Login() {
   useEffect(() => {
     if (token) {
       navigate('/');
-    }    
+    }
   }, [token, navigate]);
-  
+
   const phone = (e) => {
     const number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
     if (number.includes(Number(e.key))) {
@@ -38,7 +38,7 @@ function Login() {
       e.preventDefault();
     }
   };
-  
+
   const click = () => {
     const tell = number.current?.value;
     const password = pass.current?.value;
@@ -66,7 +66,7 @@ function Login() {
         .then((re) => re.json())
         .then((data) => {
           if (data?.ok) {
-            if (data.user.role === "Admin") {
+            if (data.user.role === 'Admin') {
               messageApi.destroy();
               messageApi.open({
                 type: 'success',
@@ -103,7 +103,6 @@ function Login() {
       });
     }
   };
-
 
   return (
     <div className="login">
