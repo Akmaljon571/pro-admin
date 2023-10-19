@@ -1,0 +1,76 @@
+.ant-layout-sider-children * {
+  color: white;
+}
+
+.ant-menu-item-selected * {
+  font-weight: 700;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+
+  h2 {
+    text-transform: uppercase;
+    color: white;
+    font-size: 27px;
+  }
+
+  img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.ant-layout-sider-collapsed {
+  .-h2 {
+    display: none;
+  }
+
+  .logo {
+    justify-content: center;
+  }
+
+  .footer {
+    width: 80px;
+    padding: 32px 30px;
+
+    &-text {
+      display: none;
+    }
+  }
+}
+
+.ant-layout-content .css-dev-only-do-not-override-pr0fja {
+  padding: 0 !important;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200px;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: white;
+  cursor: pointer;
+
+  & * {
+    color: white;
+  }
+}
+
+.main {
+  height: 100%;
+  padding: 24px 24px;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
