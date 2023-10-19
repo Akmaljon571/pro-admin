@@ -22,6 +22,15 @@ function Course() {
     setIsModalOpen(true);
   };
 
+  const resetForm = () => {
+    titleRef.current.value = '';
+    priceRef.current.value = '';
+    seqRef.current.value = '';
+    desRef.current.value = '';
+    setImgString('');
+    setImg('');
+  };
+
   const handleOk = () => {
     const title = titleRef.current?.value;
     const price = priceRef.current?.value;
@@ -60,38 +69,31 @@ function Course() {
               duration: 0,
             });
 
-            titleRef.current.value = '';
-            priceRef.current.value = '';
-            seqRef.current.value = '';
-            desRef.current.value = '';
-
-            setImgString('');
-            setImg('');
+            resetForm();
             setIsModalOpen(false);
             setCount(count + 1);
             setTimeout(messageApi.destroy, 2500);
           } else {
-            messageApi.destroy();
-            messageApi.open({
-              type: 'error',
-              content: 'Error in file upload',
-              duration: 0,
-            });
-            setTimeout(messageApi.destroy, 2500);
+            showError('Error in file upload');
           }
         });
     } else {
-      messageApi.destroy();
-      messageApi.open({
-        type: 'error',
-        content: 'Error in file upload',
-        duration: 0,
-      });
+      showError("Ma'lumotlar kiriting");
     }
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+
+  const showError = (errorMessage) => {
+    messageApi.destroy();
+    messageApi.open({
+      type: 'error',
+      content: errorMessage,
+      duration: 2.5,
+    });
+    setTimeout(messageApi.destroy, 2500);
   };
 
   const sendImage = (e) => {
@@ -114,6 +116,7 @@ function Course() {
       .then((re) => re.json())
       .then((data) => {
         if (data.ok) {
+          resetForm();
           messageApi.destroy();
           messageApi.open({
             type: 'success',
@@ -123,14 +126,10 @@ function Course() {
           setImg(URL.createObjectURL(e.target.files[0]));
           setImgString(data.files.image);
         } else {
-          messageApi.destroy();
-          messageApi.open({
-            type: 'error',
-            content: 'Error in file upload',
-            duration: 0,
-          });
+          showError("Hato Ma'lumot");
         }
-      });
+      })
+      .catch((err) => showError('Fail Fetch'));
   };
 
   useEffect(() => {
@@ -140,7 +139,29 @@ function Course() {
       },
     })
       .then((re) => re.json())
-      .then((data) => setCourse(data?.courses));
+      .then(async (data) => {
+        if (data.ok) {
+          const promises = [];
+          const courses = data?.courses;
+          for (let i = 0; i < courses.length; i++) {
+            const promise = new Promise(async (resolve, reject) => {
+              const a = await fetch(api + '/admin/file/' + courses[i]?.image, {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              });
+              const b = await a.blob();
+              courses[i].src = URL.createObjectURL(b);
+              resolve(null);
+            });
+            promises.push(promise);
+          }
+          Promise.all(promises);
+          setCourse(courses);
+        }
+      })
+      .catch(() => showError('Error fetching courses'));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count, setCourse, token]);
 
   return (
@@ -152,11 +173,16 @@ function Course() {
           <AddIcon />
         </Button>
       </div>
-      <ul>{course?.length ? course.map((e) => 
-            <li key={e._id}>
-                elarijbcrifbrifurhfuirfhur
-            </li>
-        ) : null}</ul>
+      <ul>
+        {course?.length
+          ? course.map((e) => (
+              <li key={e._id}>
+                {console.log(e.src)}
+                <img src={e?.src} alt="Course_Image" />
+              </li>
+            ))
+          : null}
+      </ul>
       <Modal
         open={isModalOpen}
         onOk={handleOk}

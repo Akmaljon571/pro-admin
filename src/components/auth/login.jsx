@@ -116,7 +116,7 @@ function Login() {
         </label>
         <label>
           <span>Parol</span>
-          <input ref={pass} maxLength={8} type="text" />
+          <input ref={pass} maxLength={8} type="password" />
         </label>
         <Button onClick={click} className="btn" variant="contained">
           Kirish

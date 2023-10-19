@@ -2,7 +2,7 @@ import { createContext, useState } from 'react';
 
 export const Admin = createContext();
 
-export const api = 'http://167.71.97.24/api';
+export const api = 'https://api.lincor.uz';
 
 export const AdminPriveder = ({ children }) => {
   const [token, setToken] = useState(
