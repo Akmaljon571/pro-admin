@@ -22,7 +22,9 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
         },
       })
         .then((re) => re.json())
-        .then((data) => setWorkbooks(data.workbooks.sort((a, b) => a.sequence - b.sequence)));
+        .then((data) =>
+          setWorkbooks(data.workbooks.sort((a, b) => a.sequence - b.sequence)),
+        );
     }
   }, [token, course, count]);
 
@@ -31,7 +33,7 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
-      }
+      },
     })
       .then((re) => re.json())
       .then((data) => {
@@ -50,7 +52,7 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
   };
 
   const getBook = (file_id) => {
-    message.loading("So'rov jo'natildi")
+    message.loading("So'rov jo'natildi");
     workbookLoad(file_id, token);
   };
 
@@ -66,9 +68,12 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
         {workbooks?.length ? (
           workbooks.map((e, i) => (
             <li key={i}>
-            <span className='workbook-get' onClick={() => getBook(e?.file_id)}>
-              <ImageSearchTwoToneIcon />
-            </span>
+              <span
+                className="workbook-get"
+                onClick={() => getBook(e?.file_id)}
+              >
+                <ImageSearchTwoToneIcon />
+              </span>
               <h4>{e.title}</h4>
               <span>{e.sequence} Dars</span>
               <div>
@@ -99,13 +104,13 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
         )}
       </ul>
       {workbookSrc ? (
-        <div className='fullScrean'>
+        <div className="fullScrean">
           <span onClick={() => setWorkbookSrc('')}></span>
           <workbook
             id="workbookElement"
             width={500}
             height={500}
-            className='fullScrean'
+            className="fullScrean"
             poster={poster}
             controls
           >

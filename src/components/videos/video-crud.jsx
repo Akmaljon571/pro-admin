@@ -22,7 +22,9 @@ function VideoCRUD({ setVideoCreate, course }) {
         },
       })
         .then((re) => re.json())
-        .then((data) => setVideos(data.videos.sort((a, b) => a.sequence - b.sequence)));
+        .then((data) =>
+          setVideos(data.videos.sort((a, b) => a.sequence - b.sequence)),
+        );
     }
   }, [token, course, count]);
 
@@ -31,7 +33,7 @@ function VideoCRUD({ setVideoCreate, course }) {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
-      }
+      },
     })
       .then((re) => re.json())
       .then((data) => {
@@ -116,13 +118,13 @@ function VideoCRUD({ setVideoCreate, course }) {
         )}
       </ul>
       {videoSrc ? (
-        <div className='fullScrean'>
+        <div className="fullScrean">
           <span onClick={() => setVideoSrc('')}></span>
           <video
             id="videoElement"
             width={500}
             height={500}
-            className='fullScrean'
+            className="fullScrean"
             poster={poster}
             controls
           >

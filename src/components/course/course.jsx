@@ -117,7 +117,6 @@ function Course() {
       .then((re) => re.json())
       .then((data) => {
         if (data.ok) {
-          resetForm();
           messageApi.destroy();
           messageApi.open({
             type: 'success',

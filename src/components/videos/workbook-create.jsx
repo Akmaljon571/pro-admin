@@ -101,11 +101,11 @@ function WorkbookCreate({ setWorkbookCreate, course, count, setCount }) {
     <div className="workbook-create">
       {contextHolder}
       <div className="title">
-        <div className='top'>
-            <h2>Workbook Sarlavhasi</h2>
-            <Button onClick={() => setWorkbookCreate(false)} variant="contained">
-                <ArrowBackIcon />
-            </Button>
+        <div className="top">
+          <h2>Workbook Sarlavhasi</h2>
+          <Button onClick={() => setWorkbookCreate(false)} variant="contained">
+            <ArrowBackIcon />
+          </Button>
         </div>
         <hr />
         <input placeholder="Sarlavha" ref={title} type="text" />
@@ -115,7 +115,9 @@ function WorkbookCreate({ setWorkbookCreate, course, count, setCount }) {
         <hr />
         <label>
           {vid ? (
-            <a href={vid} target='_blank' rel="noreferrer">PDF rasm ko'rish</a>
+            <a href={vid} target="_blank" rel="noreferrer">
+              PDF rasm ko'rish
+            </a>
           ) : (
             <>
               <MenuBookTwoToneIcon />
