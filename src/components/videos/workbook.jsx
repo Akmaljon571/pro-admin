@@ -6,6 +6,7 @@ import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import ImageSearchTwoToneIcon from '@mui/icons-material/ImageSearchTwoTone';
 import { Card, Popconfirm, message } from 'antd';
 import poster from '../../img/login_background.png';
+import { workbookLoad } from '../../func/workbook';
 
 function WorkbookCRUD({ setWorkbookCreate, course }) {
   const [workbooks, setWorkbooks] = useState([]);
@@ -44,27 +45,13 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
       });
   };
 
-  const cancel = (e) => {
+  const cancel = () => {
     message.error('Click on No');
   };
 
-  const openWorkbook = async (link) => {
-    const vid = document.getElementById('workbookElement');
-    try {
-      const res = await fetch(api + `/admin/file/${link}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!res.ok) {
-        throw new Error('Network response was not ok');
-      }
-      setWorkbookSrc(link);
-      const blob = await res.blob();
-      vid.src = URL.createObjectURL(blob);
-    } catch (error) {
-      console.error('Error in onLoad:', error);
-    }
+  const getBook = (file_id) => {
+    message.loading("So'rov jo'natildi")
+    workbookLoad(file_id, token);
   };
 
   return (
@@ -79,8 +66,8 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
         {workbooks?.length ? (
           workbooks.map((e, i) => (
             <li key={i}>
-            <span onClick={() => openWorkbook(e?.file_id)}>
-                <ImageSearchTwoToneIcon />
+            <span className='workbook-get' onClick={() => getBook(e?.file_id)}>
+              <ImageSearchTwoToneIcon />
             </span>
               <h4>{e.title}</h4>
               <span>{e.sequence} Dars</span>

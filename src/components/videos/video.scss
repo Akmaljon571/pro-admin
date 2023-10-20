@@ -165,6 +165,21 @@
 .video, .workbook {
   padding-top: 80px;
 
+  .workbook-get {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1d68f9;
+    border-radius: 50%;
+    cursor: pointer;
+
+    svg {
+      fill: #fff
+    }
+  }
+
   .top {
     display: flex;
     align-items: center;
