@@ -89,7 +89,7 @@ function CourseList({ e, setCount, count }) {
           messageApi.destroy();
           messageApi.open({
             type: 'success',
-            content: 'Course yaratildi',
+            content: "Course O'zgartirildi",
             duration: 0,
           });
 

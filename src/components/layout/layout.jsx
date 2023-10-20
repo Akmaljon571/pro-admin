@@ -41,7 +41,13 @@ function LayoutPage({ children }) {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={[
-            path === '/' ? '1' : path === '/course' ? '2' ? path === '/video' : '3' : '4',
+            path === '/'
+              ? '1'
+              : path === '/course'
+              ? '2'
+              : path === '/video'
+              ? '3'
+              : '4',
           ]}
           items={[
             {

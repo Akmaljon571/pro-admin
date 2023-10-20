@@ -1,9 +1,7 @@
-import { VideoComponent } from "../components";
+import { VideoComponent } from '../components';
 
 function Video() {
-    return (  
-        <VideoComponent />
-    );
+  return <VideoComponent />;
 }
 
 export default Video;
