@@ -3,6 +3,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import { Admin, api } from '../../context';
 import { Modal, message } from 'antd';
+import CourseList from './list';
 import './course.scss';
 
 function Course() {
@@ -173,13 +174,10 @@ function Course() {
           <AddIcon />
         </Button>
       </div>
-      <ul>
+      <ul className="course-list-fath">
         {course?.length
-          ? course.map((e) => (
-              <li key={e._id}>
-                {console.log(e.src)}
-                <img src={e?.src} alt="Course_Image" />
-              </li>
+          ? course.map((e, i) => (
+              <CourseList key={i} e={e} setCount={setCount} count={count} />
             ))
           : null}
       </ul>

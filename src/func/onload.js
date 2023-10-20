@@ -1,7 +1,6 @@
 import { api } from '../context';
 
 export const onLoad = async (e, link, token) => {
-  console.log(e, link, token);
   const res = await fetch(api + `/admin/file/${link}`, {
     headers: {
       Authorization: `Bearer ${token}`,
