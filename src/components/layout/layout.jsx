@@ -7,7 +7,7 @@ import {
 import { Layout, Menu, Button } from 'antd';
 import bg from '../../img/logo.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import AssignmentIcon from '@mui/icons-material/Assignment';
+import PlayLessonIcon from '@mui/icons-material/PlayLesson';
 import { Admin } from '../../context';
 import PhotoAlbumIcon from '@mui/icons-material/PhotoAlbum';
 import './layout.scss';
@@ -41,7 +41,7 @@ function LayoutPage({ children }) {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={[
-            path === '/' ? '1' : path === '/course' ? '2' : '3',
+            path === '/' ? '1' : path === '/course' ? '2' ? path === '/video' : '3' : '4',
           ]}
           items={[
             {
@@ -60,10 +60,18 @@ function LayoutPage({ children }) {
             },
             {
               key: '3',
-              icon: <AssignmentIcon />,
-              label: 'Arizalar',
+              icon: <PlayLessonIcon style={{ fontSize: '16px' }} />,
+              label: 'Video',
               onClick: () => {
-                navigate('/petitions');
+                navigate('/video');
+              },
+            },
+            {
+              key: '4',
+              icon: <PlayLessonIcon />,
+              label: 'Boshqa',
+              onClick: () => {
+                navigate('/boshqa');
               },
             },
           ]}

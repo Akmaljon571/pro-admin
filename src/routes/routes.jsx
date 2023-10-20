@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { Home, Login } from '../page';
-import Course from '../page/course/course';
+import { Home, Login, Course, Video } from '../page';
 
 function Routers() {
   return (
@@ -8,6 +7,7 @@ function Routers() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/course" element={<Course />} />
+      <Route path="/video" element={<Video />} />
     </Routes>
   );
 }

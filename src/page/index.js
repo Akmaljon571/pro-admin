@@ -1,4 +1,6 @@
-import Login from './auth/login';
-import Home from './home/home';
+import Login from './login';
+import Home from './home';
+import Course from './course';
+import Video from './video';
 
-export { Home, Login };
+export { Home, Login, Course, Video };

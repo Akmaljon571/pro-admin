@@ -1,4 +1,4 @@
-import { CourseComponent } from '../../components';
+import { CourseComponent } from '../components';
 
 function Course() {
   return <CourseComponent />;

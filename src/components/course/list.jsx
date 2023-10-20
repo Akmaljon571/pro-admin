@@ -228,7 +228,7 @@ function CourseList({ e, setCount, count }) {
         </label>
         <label className="img">
           <span>Image</span>
-          {!img && value.image ? (
+          {!img && value?.image ? (
             <img
               onLoad={(target) => onLoad(target, value.image, token)}
               src={gif}
