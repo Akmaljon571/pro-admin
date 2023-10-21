@@ -1,10 +1,9 @@
-import { onLoad } from '../../func/onload';
 import { useContext, useRef, useState } from 'react';
 import { Admin, api } from '../../context';
-import gif from '../../img/d9f21515b1e38d83e94fdbce88f623b6.gif';
-import summa from '../../func/summa';
 import { Button } from '@mui/material';
 import { Modal, Popconfirm, message } from 'antd';
+import { src } from '../../func/src';
+import summa from '../../func/summa';
 
 function CourseList({ e, setCount, count }) {
   const { token } = useContext(Admin);
@@ -165,11 +164,7 @@ function CourseList({ e, setCount, count }) {
   return (
     <li className="course-list">
       {contextHolder}
-      <img
-        onLoad={(target) => onLoad(target, e.image, token)}
-        src={gif}
-        alt="Loading"
-      />
+      <img src={src(e?.image)} alt="Loading" />
       <div className="bottom">
         <h3>{e.title}</h3>
         <p>
@@ -229,11 +224,7 @@ function CourseList({ e, setCount, count }) {
         <label className="img">
           <span>Image</span>
           {!img && value?.image ? (
-            <img
-              onLoad={(target) => onLoad(target, value.image, token)}
-              src={gif}
-              alt="Loading"
-            />
+            <img src={src(value.image)} alt="Loading" />
           ) : (
             <img
               src={

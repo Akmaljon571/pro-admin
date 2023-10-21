@@ -6,7 +6,7 @@ import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import ImageSearchTwoToneIcon from '@mui/icons-material/ImageSearchTwoTone';
 import { Card, Popconfirm, message } from 'antd';
 import poster from '../../img/login_background.png';
-import { workbookLoad } from '../../func/workbook';
+import { src } from '../../func/src';
 
 function WorkbookCRUD({ setWorkbookCreate, course }) {
   const [workbooks, setWorkbooks] = useState([]);
@@ -51,11 +51,6 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
     message.error('Click on No');
   };
 
-  const getBook = (file_id) => {
-    message.loading("So'rov jo'natildi");
-    workbookLoad(file_id, token);
-  };
-
   return (
     <div className="workbook">
       <div className="top">
@@ -70,7 +65,7 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
             <li key={i}>
               <span
                 className="workbook-get"
-                onClick={() => getBook(e?.file_id)}
+                onClick={() => window.open(src(e?.file_id))}
               >
                 <ImageSearchTwoToneIcon />
               </span>

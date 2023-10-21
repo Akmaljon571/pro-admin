@@ -216,7 +216,12 @@ function Users() {
                   </Button>,
                 ]}
               >
-                <Skeleton style={{height: "150px"}} loading={true} avatar active></Skeleton>
+                <Skeleton
+                  style={{ height: '150px' }}
+                  loading={true}
+                  avatar
+                  active
+                ></Skeleton>
               </Card>
             ))}
       </div>

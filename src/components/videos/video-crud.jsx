@@ -1,11 +1,12 @@
-import { Button } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import { useContext, useEffect, useState } from 'react';
-import { Admin, api } from '../../context';
-import DriveFileRenameOutlineTwoToneIcon from '@mui/icons-material/DriveFileRenameOutlineTwoTone';
-import player from '../../img/video-player.svg';
-import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { Card, Popconfirm, message } from 'antd';
+import { Admin, api } from '../../context';
+import { Button } from '@mui/material';
+import { src } from '../../func/src';
+import DriveFileRenameOutlineTwoToneIcon from '@mui/icons-material/DriveFileRenameOutlineTwoTone';
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
+import AddIcon from '@mui/icons-material/Add';
+import player from '../../img/video-player.svg';
 import poster from '../../img/login_background.png';
 
 function VideoCRUD({ setVideoCreate, course }) {
@@ -51,25 +52,6 @@ function VideoCRUD({ setVideoCreate, course }) {
     message.error('Click on No');
   };
 
-  const openVideo = async (link) => {
-    const vid = document.getElementById('videoElement');
-    try {
-      const res = await fetch(api + `/admin/file/${link}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!res.ok) {
-        throw new Error('Network response was not ok');
-      }
-      setVideoSrc(link);
-      const blob = await res.blob();
-      vid.src = URL.createObjectURL(blob);
-    } catch (error) {
-      console.error('Error in onLoad:', error);
-    }
-  };
-
   return (
     <div className="video">
       <div className="top">
@@ -83,7 +65,7 @@ function VideoCRUD({ setVideoCreate, course }) {
           videos.map((e, i) => (
             <li key={i}>
               <img
-                onClick={() => openVideo(e?.file_id)}
+                onClick={() => setVideoSrc(src(e?.file_id))}
                 src={player}
                 alt="Video_player"
               />
