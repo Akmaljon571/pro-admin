@@ -7,7 +7,10 @@ function App() {
   const path = useLocation().pathname;
   return (
     <>
-      {path === '/' || path === '/course' || path === '/video' ? (
+      {path === '/' ||
+      path === '/users' ||
+      path === '/course' ||
+      path === '/video' ? (
         <Layout>
           <Routers />
         </Layout>

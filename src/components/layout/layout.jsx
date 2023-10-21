@@ -4,6 +4,7 @@ import {
   MenuUnfoldOutlined,
   HomeOutlined,
 } from '@ant-design/icons';
+import GroupIcon from '@mui/icons-material/Group';
 import { Layout, Menu, Button } from 'antd';
 import bg from '../../img/logo.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -43,9 +44,9 @@ function LayoutPage({ children }) {
           defaultSelectedKeys={[
             path === '/'
               ? '1'
-              : path === '/course'
+              : path === '/users'
               ? '2'
-              : path === '/video'
+              : path === '/course'
               ? '3'
               : '4',
           ]}
@@ -58,6 +59,14 @@ function LayoutPage({ children }) {
             },
             {
               key: '2',
+              icon: <GroupIcon style={{ fontSize: '16px' }} />,
+              label: 'Users',
+              onClick: () => {
+                navigate('/users');
+              },
+            },
+            {
+              key: '3',
               icon: <PhotoAlbumIcon style={{ fontSize: '16px' }} />,
               label: 'Course',
               onClick: () => {
@@ -65,19 +74,11 @@ function LayoutPage({ children }) {
               },
             },
             {
-              key: '3',
+              key: '4',
               icon: <PlayLessonIcon style={{ fontSize: '16px' }} />,
               label: 'Video',
               onClick: () => {
                 navigate('/video');
-              },
-            },
-            {
-              key: '4',
-              icon: <PlayLessonIcon />,
-              label: 'Boshqa',
-              onClick: () => {
-                navigate('/boshqa');
               },
             },
           ]}
