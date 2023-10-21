@@ -1,14 +1,13 @@
 import { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { Admin, api } from '../../context';
-import VideoCRUD from './video-crud';
-import VideoCreate from './video-create';
-import './video.scss';
+import WorkbookCRUD from './workbook-crud';
+import WorkbookCreate from './workbook-create';
 
-function Video() {
+function Workbook() {
   const [courses, setcourses] = useState([]);
   const [course, setCourse] = useState('');
-  const [videoCreate, setVideoCreate] = useState(false);
+  const [workbookCreate, setWorkbookCreate] = useState(false);
   const { token } = useContext(Admin);
   const [count, setCount] = useState(0);
 
@@ -36,18 +35,18 @@ function Video() {
             ))
           : null}
       </select>
-      {videoCreate ? (
-        <VideoCreate
-          setVideoCreate={setVideoCreate}
+      {workbookCreate ? (
+        <WorkbookCreate
+          setWorkbookCreate={setWorkbookCreate}
           course={course}
           count={count}
           setCount={setCount}
         />
       ) : (
-        <VideoCRUD course={course} setVideoCreate={setVideoCreate} />
+        <WorkbookCRUD course={course} setWorkbookCreate={setWorkbookCreate} />
       )}
     </div>
   );
 }
 
-export default Video;
+export default Workbook;

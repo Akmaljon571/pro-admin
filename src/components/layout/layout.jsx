@@ -1,16 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   HomeOutlined,
 } from '@ant-design/icons';
-import GroupIcon from '@mui/icons-material/Group';
 import { Layout, Menu, Button } from 'antd';
-import bg from '../../img/logo.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import PlayLessonIcon from '@mui/icons-material/PlayLesson';
 import { Admin } from '../../context';
+import GroupIcon from '@mui/icons-material/Group';
+import PlayLessonIcon from '@mui/icons-material/PlayLesson';
 import PhotoAlbumIcon from '@mui/icons-material/PhotoAlbum';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import bg from '../../img/logo.svg';
 import './layout.scss';
 
 function LayoutPage({ children }) {
@@ -48,7 +49,9 @@ function LayoutPage({ children }) {
               ? '2'
               : path === '/course'
               ? '3'
-              : '4',
+              : path === '/video'
+              ? '4'
+              : '5',
           ]}
           items={[
             {
@@ -79,6 +82,14 @@ function LayoutPage({ children }) {
               label: 'Video',
               onClick: () => {
                 navigate('/video');
+              },
+            },
+            {
+              key: '5',
+              icon: <AutoStoriesIcon style={{ fontSize: '16px' }} />,
+              label: 'Workbook',
+              onClick: () => {
+                navigate('/workbook');
               },
             },
           ]}

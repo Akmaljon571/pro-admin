@@ -12,11 +12,6 @@ function WorkbookCreate({ setWorkbookCreate, course, count, setCount }) {
   const [messageApi, contextHolder] = message.useMessage();
   const title = useRef();
 
-  const item = [];
-  for (let i = 1; i < 50; i++) {
-    item.push(i);
-  }
-
   const showError = (errorMessage) => {
     messageApi.destroy();
     messageApi.open({
