@@ -20,7 +20,7 @@ function Video() {
     })
       .then((re) => re.json())
       .then((data) => {
-        setCourse(data.courses[1]?._id);
+        setCourse(data.courses[0]?._id);
         setcourses(data.courses);
       });
   }, [token]);
