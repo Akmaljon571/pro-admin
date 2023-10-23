@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { message } from 'antd';
 import { Admin, api } from '../../context';
 import './auth.scss';
@@ -8,9 +8,12 @@ import './auth.scss';
 function Login() {
   const number = useRef();
   const pass = useRef();
+  const codeRef = useRef();
   const [messageApi, contextHolder] = message.useMessage();
   const { setToken, token } = useContext(Admin);
+  const [login, setLogin] = useState('');
   const navigate = useNavigate();
+  const [phoneNumber, setPhoneNumber] = useState(0);
 
   useEffect(() => {
     if (token) {
@@ -39,46 +42,85 @@ function Login() {
     }
   };
 
+  const codeFilter = (e) => {
+    const number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+    if (!number.includes(Number(e.key)) && e.key !== 'Backspace') {
+      e.preventDefault();
+    }
+  };
+
   const click = () => {
-    const tell = number.current?.value;
-    const password = pass.current?.value;
-    messageApi.open({
-      type: 'loading',
-      content: 'Action in progress..',
-      duration: 0,
-    });
+    if (!login) {
+      const tell = number.current?.value;
+      const password = pass.current?.value;
+      messageApi.open({
+        type: 'loading',
+        content: 'Action in progress..',
+        duration: 0,
+      });
 
-    if (tell?.length === 14 && password?.length === 8) {
-      const phone = tell.split(' ').join('');
-      const phone_number =
-        '998' + phone.split('(').join('').split(')').join('');
+      if (tell?.length === 14 && password?.length === 8) {
+        const phone = tell.split(' ').join('');
+        const phone_number =
+          '998' + phone.split('(').join('').split(')').join('');
 
-      fetch(api + '/auth/login', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          phone_number,
-          password,
-        }),
-      })
-        .then((re) => re.json())
-        .then((data) => {
-          if (data?.ok) {
-            if (data.user.role === 'Admin') {
-              messageApi.destroy();
-              messageApi.open({
-                type: 'success',
-                content: 'Muaffaqiyatli tekshiruv',
-              });
-              localStorage.setItem(
-                'admin_token',
-                JSON.stringify(data?.access_token),
-              );
-              setToken(data?.access_token);
-              navigate('/');
+        fetch(api + '/auth/login', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            phone_number,
+            password,
+          }),
+        })
+          .then((re) => re.json())
+          .then((data) => {
+            if (data?.ok) {
+              if (data.user.role === 'Admin') {
+                messageApi.destroy();
+                messageApi.open({
+                  type: 'success',
+                  content: 'Muaffaqiyatli tekshiruv',
+                });
+                setPhoneNumber(phone_number);
+                number.current.value = '';
+                setLogin(data.access_token);
+                fetch(api + '/auth/resend', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    phone_number,
+                  }),
+                })
+                  .then((re) => re.json())
+                  .then((data) => {
+                    if (data?.ok) {
+                      messageApi.destroy();
+                      messageApi.open({
+                        type: 'success',
+                        content: "Kod jo'natildi",
+                      });
+                    } else {
+                      messageApi.destroy();
+                      messageApi.open({
+                        type: 'error',
+                        content: "Ma'lumot xato",
+                        duration: 0,
+                      });
+                    }
+                  });
+              } else {
+                messageApi.destroy();
+                messageApi.open({
+                  type: 'error',
+                  content: "Ma'lumot xato",
+                  duration: 0,
+                });
+              }
             } else {
               messageApi.destroy();
               messageApi.open({
@@ -87,21 +129,47 @@ function Login() {
                 duration: 0,
               });
             }
+          });
+      } else {
+        messageApi.destroy();
+        messageApi.open({
+          type: 'error',
+          content: "Ma'lumotlarni to'ldiring",
+        });
+      }
+    } else {
+      const code = codeRef.current.value;
+      message.loading('Kod tekshirilmoqda');
+      fetch(api + '/auth/verification', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phone_number: phoneNumber,
+          code,
+        }),
+      })
+        .then((re) => re.json())
+        .then((data) => {
+          if (data?.ok) {
+            message.destroy();
+            messageApi.open({
+              type: 'success',
+              content: 'Muaffaqiyatli tekshiruv',
+            });
+            localStorage.setItem('admin_token', JSON.stringify(login));
+            setToken(login);
+            navigate('/');
           } else {
             messageApi.destroy();
             messageApi.open({
               type: 'error',
-              content: "Ma'lumot xato",
+              content: 'Kod Xato',
               duration: 0,
             });
           }
         });
-    } else {
-      messageApi.destroy();
-      messageApi.open({
-        type: 'error',
-        content: "Ma'lumotlarni to'ldiring",
-      });
     }
   };
 
@@ -111,15 +179,37 @@ function Login() {
       <div className="login_form">
         <h1>Admin Panel</h1>
         <p>Admin Telefon nomeri orqali</p>
-        <label>
-          <span>Telefon Nomer</span>
-          <input ref={number} onKeyDown={phone} type="text" />
-        </label>
-        <label>
-          <span>Parol</span>
-          <input ref={pass} maxLength={8} type="password" />
-        </label>
-        <Button onClick={click} className="btn" variant="contained">
+        {!login ? (
+          <>
+            <label>
+              <span>Telefon Nomer</span>
+              <input ref={number} onKeyDown={phone} type="text" />
+            </label>
+            <label>
+              <span>Parol</span>
+              <input ref={pass} maxLength={8} type="password" />
+            </label>
+          </>
+        ) : (
+          <>
+            <label>
+              <span>Kodni kiriting</span>
+              <input
+                defaultValue={''}
+                onKeyDown={codeFilter}
+                ref={codeRef}
+                maxLength={4}
+                type="text"
+              />
+            </label>
+          </>
+        )}
+        <Button
+          style={login ? { marginTop: '100px' } : {}}
+          onClick={click}
+          className="btn"
+          variant="contained"
+        >
           Kirish
         </Button>
       </div>

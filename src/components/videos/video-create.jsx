@@ -13,7 +13,7 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
   const [video, setVideo] = useState('');
   const [messageApi, contextHolder] = message.useMessage();
   const [item, setItem] = useState([]);
-  const { updVideo } = useContext(Admin); 
+  const { updVideo } = useContext(Admin);
   const title = useRef();
   const text = useRef();
   const seq = useRef();
@@ -30,7 +30,7 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
           if (data.ok) {
             const arr = [];
             for (let i = 1; i < 50; i++) {
-              if (!data.videos.find(e => e.sequence === i)) {
+              if (!data.videos.find((e) => e.sequence === i)) {
                 arr.push(i);
               }
             }
@@ -44,7 +44,7 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
       }
       setItem(arr);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [course]);
 
   const showError = (errorMessage) => {
@@ -102,8 +102,12 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
     if (updVideo?._id) {
       const obj = {
         title: title.current?.value ? title.current?.value : updVideo.title,
-        description: text.current?.value ? text.current?.value : updVideo.description,
-        sequence: Number(seq.current?.value) ? seq.current?.value : updVideo.sequence,
+        description: text.current?.value
+          ? text.current?.value
+          : updVideo.description,
+        sequence: Number(seq.current?.value)
+          ? seq.current?.value
+          : updVideo.sequence,
         file_id: video ? video : updVideo.file_id,
       };
 
@@ -174,12 +178,24 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
             <ArrowBackIcon />
           </Button>
         </div>
-        <input defaultValue={updVideo?.title} placeholder="Sarlavha" ref={title} type="text" />
+        <input
+          defaultValue={updVideo?.title}
+          placeholder="Sarlavha"
+          ref={title}
+          type="text"
+        />
       </div>
       <div className="level">
-        <h3>Video Ketma-ketligi{updVideo?.sequence ? `. Hozirgi o'rni ${updVideo?.sequence}-dars` : ""}</h3>
+        <h3>
+          Video Ketma-ketligi
+          {updVideo?.sequence
+            ? `. Hozirgi o'rni ${updVideo?.sequence}-dars`
+            : ''}
+        </h3>
         <select ref={seq}>
-        <option type="others" hidden>Video nechinchi dars?</option>  
+          <option type="others" hidden>
+            Video nechinchi dars?
+          </option>
           {item.map((e) => (
             <option key={e} value={e}>
               {e}-dars
@@ -213,14 +229,20 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
       <div className="comment">
         <h2>Video comment</h2>
         <hr />
-        <textarea defaultValue={updVideo.description} ref={text} cols="30" rows="10" placeholder="Izoh"></textarea>
+        <textarea
+          defaultValue={updVideo.description}
+          ref={text}
+          cols="30"
+          rows="10"
+          placeholder="Izoh"
+        ></textarea>
       </div>
       <div className="btns">
         <Button onClick={() => setVideoCreate(false)} variant="outlined">
           Ortga Qaytish
         </Button>
         <Button onClick={sendData} variant="contained">
-          {updVideo ? "Videoni o'zgartirish" : "Videoni joylash"}
+          {updVideo ? "Videoni o'zgartirish" : 'Videoni joylash'}
         </Button>
       </div>
     </div>
