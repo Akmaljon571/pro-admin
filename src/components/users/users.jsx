@@ -277,10 +277,15 @@ function Users() {
                   description={
                     <>
                       <b>{e?.last_name}</b> <span>{e.email}</span>
-                      <i>{tell(e.phone_number)}</i><br />
+                      <i>{tell(e.phone_number)}</i>
+                      <br />
                       <code>status: {e.status}</code>
-                      <span className='course_data'>Jami Kurs: {e.total_course} ta</span>
-                      <span className='course_data1'>Jami foyda: {e.total_amount} so'm</span>
+                      <span className="course_data">
+                        Jami Kurs: {e.total_course} ta
+                      </span>
+                      <span className="course_data1">
+                        Jami foyda: {e.total_amount} so'm
+                      </span>
                     </>
                   }
                 />
@@ -323,14 +328,12 @@ function Users() {
           </>
         )}
       </div>
-      {!notFount ? (
-        <Pagination
-          className="pagination"
-          current={pageNumber}
-          onChange={(e) => setPageNumber(e)}
-          total={users.length}
-        />
-      ) : null}
+      <Pagination
+        className="pagination"
+        current={pageNumber}
+        onChange={(e) => setPageNumber(e)}
+        total={users.length}
+      />
       <Modal
         className="users-edit"
         title="Foydalanuvchini habari yo'q"
