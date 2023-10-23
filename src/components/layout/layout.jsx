@@ -11,6 +11,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import PlayLessonIcon from '@mui/icons-material/PlayLesson';
 import PhotoAlbumIcon from '@mui/icons-material/PhotoAlbum';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import bg from '../../img/logo.svg';
 import './layout.scss';
 
@@ -51,7 +52,9 @@ function LayoutPage({ children }) {
               ? '3'
               : path === '/video'
               ? '4'
-              : '5',
+              : path === '/workbook'
+              ? '5'
+              : '6',
           ]}
           items={[
             {
@@ -90,6 +93,14 @@ function LayoutPage({ children }) {
               label: 'Workbook',
               onClick: () => {
                 navigate('/workbook');
+              },
+            },
+            {
+              key: '6',
+              icon: <PriceCheckIcon style={{ fontSize: '16px' }} />,
+              label: 'Take',
+              onClick: () => {
+                navigate('/take');
               },
             },
           ]}

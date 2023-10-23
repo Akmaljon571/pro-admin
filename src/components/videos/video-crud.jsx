@@ -106,14 +106,21 @@ function VideoCRUD({ setVideoCreate, course }) {
           ))
         ) : (
           <>
-            {notFount ? <Cascader.Panel style={{marginTop: "0px"}} className='not_fount' />  : <Card
-              style={{
-                width: '100%',
-                marginTop: 16,
-              }}
-              className="load"
-              loading={true}
-            ></Card>}
+            {notFount ? (
+              <Cascader.Panel
+                style={{ marginTop: '0px' }}
+                className="not_fount"
+              />
+            ) : (
+              <Card
+                style={{
+                  width: '100%',
+                  marginTop: 16,
+                }}
+                className="load"
+                loading={true}
+              ></Card>
+            )}
           </>
         )}
       </ul>

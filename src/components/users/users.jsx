@@ -64,9 +64,9 @@ function Users() {
           setUsers([]);
         }
       });
-      setTimeout(() => {
-        setNotFount(true);
-      }, 2000);
+    setTimeout(() => {
+      setNotFount(true);
+    }, 2000);
   }, [
     setUsers,
     token,
@@ -218,110 +218,117 @@ function Users() {
         ]}
       />
       <div className="list">
-        {users?.length
-          ? users.map((e) => (
-              <Card
-                key={e._id}
-                style={{
-                  width: 300,
-                  marginTop: 16,
-                }}
-                className="item"
-                actions={[
-                  <Button onClick={() => showModal(e)} variant="text">
-                    <BorderColorIcon style={{ fill: '#888' }} key="edit" />
-                  </Button>,
-                  <>
-                    {e.status === 'Active' ? (
-                      <>
-                        <Popconfirm
-                          title="Foydalanuvchini Block qilish"
-                          description={
-                            <span>
-                              Ishonchingiz komilmi? <br /> Foydanaluvchini qora
-                              ro'yxatga tushgach <br /> ortga qaytarish imkoni
-                              yoq
-                            </span>
-                          }
-                          onConfirm={() => remove(e._id)}
-                          onCancel={cancel}
-                          okText="Yes"
-                          cancelText="No"
-                        >
-                          <Button variant="text">
-                            <DeleteForeverIcon key="ellipsis" />
-                          </Button>
-                        </Popconfirm>
-                      </>
-                    ) : (
-                      <Button className="noActive" variant="contained">
-                        <DeleteForeverIcon key="ellipsis" />
-                      </Button>
-                    )}
-                  </>,
-                ]}
-              >
-                <Skeleton loading={users?.length ? false : true} avatar active>
-                  <Meta
-                    className="top"
-                    avatar={
-                      <Avatar
-                        className="img"
-                        src={
-                          e?.image
-                            ? src(e?.image)
-                            : 'https://i.stack.imgur.com/l60Hf.png'
+        {users?.length ? (
+          users.map((e) => (
+            <Card
+              key={e._id}
+              style={{
+                width: 300,
+                marginTop: 16,
+              }}
+              className="item"
+              actions={[
+                <Button onClick={() => showModal(e)} variant="text">
+                  <BorderColorIcon style={{ fill: '#888' }} key="edit" />
+                </Button>,
+                <>
+                  {e.status === 'Active' ? (
+                    <>
+                      <Popconfirm
+                        title="Foydalanuvchini Block qilish"
+                        description={
+                          <span>
+                            Ishonchingiz komilmi? <br /> Foydanaluvchini qora
+                            ro'yxatga tushgach <br /> ortga qaytarish imkoni yoq
+                          </span>
                         }
-                      />
-                    }
-                    title={<h5>{e?.first_name}</h5>}
-                    description={
-                      <>
-                        <b>{e?.last_name}</b> <span>{e.email}</span>{' '}
-                        <i>{tell(e.phone_number)}</i>{' '}
-                        <code>status: {e.status}</code>
-                      </>
-                    }
-                  />
-                </Skeleton>
-              </Card>
-            ))
-          : <>
-            {notFount ? <Cascader.Panel className='not_fount' /> : createArray(4).map((e) => (
-              <Card
-                key={e}
-                style={{
-                  width: 300,
-                  marginTop: 16,
-                }}
-                actions={[
-                  <Button onClick={showModal} variant="text">
-                    <BorderColorIcon style={{ fill: '#888' }} key="edit" />
-                  </Button>,
-                  <Button
-                    className={e.status !== 'Active' ? 'noActive' : ''}
-                    variant={e.status === 'Active' ? 'text' : 'contained'}
-                  >
-                    <DeleteForeverIcon key="ellipsis" />
-                  </Button>,
-                ]}
-              >
-                <Skeleton
-                  style={{ height: '150px' }}
-                  loading={true}
-                  avatar
-                  active
-                ></Skeleton>
-              </Card>
-            ))}
-            </>}
+                        onConfirm={() => remove(e._id)}
+                        onCancel={cancel}
+                        okText="Yes"
+                        cancelText="No"
+                      >
+                        <Button variant="text">
+                          <DeleteForeverIcon key="ellipsis" />
+                        </Button>
+                      </Popconfirm>
+                    </>
+                  ) : (
+                    <Button className="noActive" variant="contained">
+                      <DeleteForeverIcon key="ellipsis" />
+                    </Button>
+                  )}
+                </>,
+              ]}
+            >
+              <Skeleton loading={users?.length ? false : true} avatar active>
+                <Meta
+                  className="top"
+                  avatar={
+                    <Avatar
+                      className="img"
+                      src={
+                        e?.image
+                          ? src(e?.image)
+                          : 'https://i.stack.imgur.com/l60Hf.png'
+                      }
+                    />
+                  }
+                  title={<h5>{e?.first_name}</h5>}
+                  description={
+                    <>
+                      <b>{e?.last_name}</b> <span>{e.email}</span>{' '}
+                      <i>{tell(e.phone_number)}</i>{' '}
+                      <code>status: {e.status}</code>
+                    </>
+                  }
+                />
+              </Skeleton>
+            </Card>
+          ))
+        ) : (
+          <>
+            {notFount ? (
+              <Cascader.Panel className="not_fount" />
+            ) : (
+              createArray(4).map((e) => (
+                <Card
+                  key={e}
+                  style={{
+                    width: 300,
+                    marginTop: 16,
+                  }}
+                  actions={[
+                    <Button onClick={showModal} variant="text">
+                      <BorderColorIcon style={{ fill: '#888' }} key="edit" />
+                    </Button>,
+                    <Button
+                      className={e.status !== 'Active' ? 'noActive' : ''}
+                      variant={e.status === 'Active' ? 'text' : 'contained'}
+                    >
+                      <DeleteForeverIcon key="ellipsis" />
+                    </Button>,
+                  ]}
+                >
+                  <Skeleton
+                    style={{ height: '150px' }}
+                    loading={true}
+                    avatar
+                    active
+                  ></Skeleton>
+                </Card>
+              ))
+            )}
+          </>
+        )}
       </div>
-      {!notFount ? <Pagination
-        className="pagination"
-        current={pageNumber}
-        onChange={(e) => setPageNumber(e)}
-        total={users.length}
-      /> : null}
+      {!notFount ? (
+        <Pagination
+          className="pagination"
+          current={pageNumber}
+          onChange={(e) => setPageNumber(e)}
+          total={users.length}
+        />
+      ) : null}
       <Modal
         className="users-edit"
         title="Foydalanuvchini habari yo'q"

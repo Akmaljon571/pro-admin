@@ -167,11 +167,8 @@ function CourseList({ e, setCount, count }) {
       <img src={src(e?.image)} alt="Loading" />
       <div className="bottom">
         <h3>{e.title}</h3>
-        <p>
-          {e.description}u darsliklari sizning yuqori daraja olishingizga yordam
-          beradi
-        </p>
-        <span>{e.videos?.length} Video + Workbook</span>
+        <p>{e.description}</p>
+        <span>{e.video_count} Video + Workbook</span>
         <div>{summa(e.price)}so'm</div>
         <Button
           onClick={() => showModal(e._id)}

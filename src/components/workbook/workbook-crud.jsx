@@ -27,9 +27,9 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
         .then((data) =>
           setWorkbooks(data.workbooks.sort((a, b) => a.sequence - b.sequence)),
         );
-        setTimeout(() => {
-          setNotFount(true);
-        }, 2000);
+      setTimeout(() => {
+        setNotFount(true);
+      }, 2000);
     }
   }, [token, course, count]);
 
@@ -92,14 +92,21 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
           ))
         ) : (
           <>
-            {notFount ? <Cascader.Panel style={{marginTop: "0px"}} className='not_fount' />  : <Card
-              style={{
-                width: '100%',
-                marginTop: 16,
-              }}
-              className="load"
-              loading={true}
-            ></Card>}
+            {notFount ? (
+              <Cascader.Panel
+                style={{ marginTop: '0px' }}
+                className="not_fount"
+              />
+            ) : (
+              <Card
+                style={{
+                  width: '100%',
+                  marginTop: 16,
+                }}
+                className="load"
+                loading={true}
+              ></Card>
+            )}
           </>
         )}
       </ul>
