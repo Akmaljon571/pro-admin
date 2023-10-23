@@ -276,9 +276,11 @@ function Users() {
                   title={<h5>{e?.first_name}</h5>}
                   description={
                     <>
-                      <b>{e?.last_name}</b> <span>{e.email}</span>{' '}
-                      <i>{tell(e.phone_number)}</i>{' '}
+                      <b>{e?.last_name}</b> <span>{e.email}</span>
+                      <i>{tell(e.phone_number)}</i><br />
                       <code>status: {e.status}</code>
+                      <span className='course_data'>Jami Kurs: {e.total_course} ta</span>
+                      <span className='course_data1'>Jami foyda: {e.total_amount} so'm</span>
                     </>
                   }
                 />
