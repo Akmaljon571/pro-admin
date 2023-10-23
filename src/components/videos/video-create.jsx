@@ -2,8 +2,9 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import TheatersIcon from '@mui/icons-material/Theaters';
 import { Button } from '@mui/material';
 import { Admin, api } from '../../context';
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { message } from 'antd';
+import { src } from '../../func/src';
 import './video.scss';
 
 function VideoCreate({ setVideoCreate, course, count, setCount }) {
@@ -11,14 +12,40 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
   const [vid, setVid] = useState('');
   const [video, setVideo] = useState('');
   const [messageApi, contextHolder] = message.useMessage();
+  const [item, setItem] = useState([]);
+  const { updVideo } = useContext(Admin); 
   const title = useRef();
   const text = useRef();
   const seq = useRef();
 
-  const item = [];
-  for (let i = 1; i < 50; i++) {
-    item.push(i);
-  }
+  useEffect(() => {
+    if (!updVideo?._id) {
+      fetch(api + `/admin/course/${course}/video`, {
+        headers: {
+          Authorization: `Bearer: ${token}`,
+        },
+      })
+        .then((re) => re.json())
+        .then((data) => {
+          if (data.ok) {
+            const arr = [];
+            for (let i = 1; i < 50; i++) {
+              if (!data.videos.find(e => e.sequence === i)) {
+                arr.push(i);
+              }
+            }
+            setItem(arr);
+          }
+        });
+    } else {
+      const arr = [];
+      for (let i = 1; i < 50; i++) {
+        arr.push(i);
+      }
+      setItem(arr);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [course]);
 
   const showError = (errorMessage) => {
     messageApi.destroy();
@@ -72,37 +99,69 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
   };
 
   const sendData = () => {
-    const obj = {
-      title: title.current?.value,
-      description: text.current?.value,
-      sequence: seq.current?.value,
-      file_id: video,
-    };
-    console.log(video);
-    messageApi.open({
-      type: 'loading',
-      content: 'Action in progress..',
-      duration: 0,
-    });
-    console.log(obj);
-    fetch(api + `/admin/course/${course}/video`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(obj),
-    })
-      .then((re) => re.json())
-      .then((data) => {
-        console.log(data);
-        if (data?.ok) {
-          setCount(count + 1);
-          setVideoCreate(false);
-        } else {
-          showError(data.message);
-        }
+    if (updVideo?._id) {
+      const obj = {
+        title: title.current?.value ? title.current?.value : updVideo.title,
+        description: text.current?.value ? text.current?.value : updVideo.description,
+        sequence: Number(seq.current?.value) ? seq.current?.value : updVideo.sequence,
+        file_id: video ? video : updVideo.file_id,
+      };
+
+      messageApi.open({
+        type: 'loading',
+        content: "Ma'lumotlar tekshirilmoqda",
+        duration: 0,
       });
+
+      fetch(api + `/admin/course/${course}/video/${updVideo._id}`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(obj),
+      })
+        .then((re) => re.json())
+        .then((data) => {
+          if (data?.ok) {
+            setCount(count + 1);
+            setVideoCreate(false);
+          } else {
+            showError(data.message);
+          }
+        });
+    } else {
+      const obj = {
+        title: title.current?.value,
+        description: text.current?.value,
+        sequence: seq.current?.value,
+        file_id: video,
+      };
+      messageApi.open({
+        type: 'loading',
+        content: 'Action in progress..',
+        duration: 0,
+      });
+      console.log(obj);
+      fetch(api + `/admin/course/${course}/video`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(obj),
+      })
+        .then((re) => re.json())
+        .then((data) => {
+          console.log(data);
+          if (data?.ok) {
+            setCount(count + 1);
+            setVideoCreate(false);
+          } else {
+            showError(data.message);
+          }
+        });
+    }
   };
 
   return (
@@ -115,11 +174,12 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
             <ArrowBackIcon />
           </Button>
         </div>
-        <input placeholder="Sarlavha" ref={title} type="text" />
+        <input defaultValue={updVideo?.title} placeholder="Sarlavha" ref={title} type="text" />
       </div>
       <div className="level">
-        <h3>Video Ketma-ketligi</h3>
+        <h3>Video Ketma-ketligi{updVideo?.sequence ? `. Hozirgi o'rni ${updVideo?.sequence}-dars` : ""}</h3>
         <select ref={seq}>
+        <option type="others" hidden>Video nechinchi dars?</option>  
           {item.map((e) => (
             <option key={e} value={e}>
               {e}-dars
@@ -131,8 +191,8 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
         <h2>Video yuklash</h2>
         <hr />
         <label>
-          {vid ? (
-            <video controls src={vid}></video>
+          {vid || updVideo?.file_id ? (
+            <video controls src={src(updVideo.file_id) || vid}></video>
           ) : (
             <>
               <TheatersIcon />
@@ -153,14 +213,14 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
       <div className="comment">
         <h2>Video comment</h2>
         <hr />
-        <textarea ref={text} cols="30" rows="10" placeholder="Izoh"></textarea>
+        <textarea defaultValue={updVideo.description} ref={text} cols="30" rows="10" placeholder="Izoh"></textarea>
       </div>
       <div className="btns">
         <Button onClick={() => setVideoCreate(false)} variant="outlined">
           Ortga Qaytish
         </Button>
         <Button onClick={sendData} variant="contained">
-          Videoni joylash
+          {updVideo ? "Videoni o'zgartirish" : "Videoni joylash"}
         </Button>
       </div>
     </div>

@@ -14,6 +14,7 @@ function VideoCRUD({ setVideoCreate, course }) {
   const { token } = useContext(Admin);
   const [videoSrc, setVideoSrc] = useState('');
   const [count, setCount] = useState(0);
+  const { setUpdVideo } = useContext(Admin);
 
   useEffect(() => {
     if (course) {
@@ -56,7 +57,7 @@ function VideoCRUD({ setVideoCreate, course }) {
     <div className="video">
       <div className="top">
         <h2 className="title">Video darslik yuklash</h2>
-        <Button onClick={() => setVideoCreate(true)} variant="contained">
+        <Button onClick={() => {setVideoCreate(true); setUpdVideo({});}} variant="contained">
           <AddIcon /> Add Video
         </Button>
       </div>
@@ -72,7 +73,7 @@ function VideoCRUD({ setVideoCreate, course }) {
               <h4>{e.title}</h4>
               <span>{e.sequence} Dars</span>
               <div>
-                <DriveFileRenameOutlineTwoToneIcon className="edit" />
+                <DriveFileRenameOutlineTwoToneIcon onClick={() => {setUpdVideo(e); setVideoCreate(true);}} className="edit" />
                 <Popconfirm
                   title="Videoni o'chirmoqchimisiz"
                   description="Ishonchingiz komilmi?"

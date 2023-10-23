@@ -160,6 +160,10 @@
     align-items: center;
     margin-top: 50px;
     gap: 50px;
+
+    button {
+      text-transform: capitalize;
+    }
   }
 }
 
