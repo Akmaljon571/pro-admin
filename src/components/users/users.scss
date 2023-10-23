@@ -12,7 +12,7 @@
   .list {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 20px;
 
     .item {
       height: 249px;
@@ -67,6 +67,22 @@
 
     svg {
       fill: red;
+    }
+  }
+
+  .pagination {
+    margin-top: 100px;
+
+    svg {
+      margin-top: 23px;
+      fill: #8bbbfe;
+      height: auto;
+    }
+  }
+
+  .search {
+    svg {
+      fill: blue;
     }
   }
 

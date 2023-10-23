@@ -2,14 +2,24 @@ import { useContext, useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Admin, api } from '../../context';
-import { Avatar, Card, Modal, Popconfirm, Skeleton, message } from 'antd';
+import {
+  Avatar,
+  Card,
+  Modal,
+  Pagination,
+  Popconfirm,
+  Select,
+  Skeleton,
+  message,
+} from 'antd';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { Button } from '@mui/material';
 import tell from '../../func/tell';
-import './users.scss';
 import { createArray } from '../../func/array';
 import { src } from '../../func/src';
+import './users.scss';
+import Search from 'antd/es/input/Search';
 const { Meta } = Card;
 
 function Users() {
@@ -19,28 +29,59 @@ function Users() {
   const [image, setImage] = useState('');
   const [count, setCount] = useState(0);
   const [reset, setReset] = useState({});
+  const [status, setStatus] = useState('');
+  const [searchEmail, setSearchEmail] = useState('');
+  const [searchPhone, setSearchPhone] = useState('');
+  const [pageSize, setPageSize] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
   const name = useRef();
   const last = useRef();
 
   useEffect(() => {
-    fetch(api + '/admin/user', {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    fetch(
+      api +
+        `/admin/user?role=Customer${
+          pageNumber ? '&page_number=' + pageNumber : ''
+        }${status ? '&status=' + status : ''}${
+          searchEmail ? '&email=' + searchEmail : ''
+        }${searchPhone ? '&phone_number=' + searchPhone : ''}${
+          pageSize ? '&page_size=' + pageSize : ''
+        }`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       },
-    })
+    )
       .then((re) => re.json())
       .then((data) => {
         if (data?.users?.length) {
-          setUsers(data.users.filter((e) => e.role !== 'Admin'));
+          setUsers(data.users);
         } else {
           setUsers([]);
         }
       });
-  }, [setUsers, token, count]);
+  }, [
+    setUsers,
+    token,
+    count,
+    searchEmail,
+    status,
+    searchPhone,
+    pageSize,
+    pageNumber,
+  ]);
 
   const showModal = (e) => {
     setReset(e);
     setIsModalOpen(true);
+  };
+
+  const codeFilter = (e) => {
+    const number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+    if (!number.includes(Number(e.key)) && e.key !== 'Backspace') {
+      e.preventDefault();
+    }
   };
 
   const handleOk = () => {
@@ -128,6 +169,48 @@ function Users() {
   return (
     <div className="users">
       <h2>Users</h2>
+      <Search
+        placeholder="E-Mail search"
+        onChange={(e) => setSearchEmail(e.target.value)}
+        loading={!users?.length ? true : false}
+        className="search"
+        style={{
+          width: 200,
+          color: '#00f',
+        }}
+      />
+      <Search
+        placeholder="Phone Number search"
+        onChange={(e) => setSearchPhone(e.target.value)}
+        onKeyDown={codeFilter}
+        className="search"
+        loading={!users?.length ? true : false}
+        style={{
+          width: 200,
+          marginLeft: '30px',
+          color: 'blue !importent',
+        }}
+      />
+      <Select
+        defaultValue="Status"
+        style={{ width: 120, marginLeft: '30px' }}
+        onChange={(e) => setStatus(e)}
+        options={[
+          { value: 'Active', label: 'Active' },
+          { value: 'Blocked', label: 'Blocked' },
+        ]}
+      />
+      <Select
+        defaultValue="Ro'yxat uzunligi"
+        style={{ width: 150, marginLeft: '30px' }}
+        onChange={(e) => setPageSize(e)}
+        options={[
+          { value: '10', label: '10' },
+          { value: '15', label: '15' },
+          { value: '20', label: '20' },
+          { value: '25', label: '25' },
+        ]}
+      />
       <div className="list">
         {users?.length
           ? users.map((e) => (
@@ -225,6 +308,12 @@ function Users() {
               </Card>
             ))}
       </div>
+      <Pagination
+        className="pagination"
+        current={pageNumber}
+        onChange={(e) => setPageNumber(e)}
+        total={50}
+      />
       <Modal
         className="users-edit"
         title="Foydalanuvchini habari yo'q"
