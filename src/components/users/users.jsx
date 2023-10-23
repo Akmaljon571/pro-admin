@@ -5,6 +5,7 @@ import { Admin, api } from '../../context';
 import {
   Avatar,
   Card,
+  Cascader,
   Modal,
   Pagination,
   Popconfirm,
@@ -18,8 +19,8 @@ import { Button } from '@mui/material';
 import tell from '../../func/tell';
 import { createArray } from '../../func/array';
 import { src } from '../../func/src';
-import './users.scss';
 import Search from 'antd/es/input/Search';
+import './users.scss';
 const { Meta } = Card;
 
 function Users() {
@@ -34,10 +35,12 @@ function Users() {
   const [searchPhone, setSearchPhone] = useState('');
   const [pageSize, setPageSize] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
+  const [notFount, setNotFount] = useState(false);
   const name = useRef();
   const last = useRef();
 
   useEffect(() => {
+    setNotFount(false);
     fetch(
       api +
         `/admin/user?role=Customer${
@@ -61,6 +64,9 @@ function Users() {
           setUsers([]);
         }
       });
+      setTimeout(() => {
+        setNotFount(true);
+      }, 2000);
   }, [
     setUsers,
     token,
@@ -172,7 +178,7 @@ function Users() {
       <Search
         placeholder="E-Mail search"
         onChange={(e) => setSearchEmail(e.target.value)}
-        loading={!users?.length ? true : false}
+        loading={users?.length || notFount ? false : true}
         className="search"
         style={{
           width: 200,
@@ -184,7 +190,7 @@ function Users() {
         onChange={(e) => setSearchPhone(e.target.value)}
         onKeyDown={codeFilter}
         className="search"
-        loading={!users?.length ? true : false}
+        loading={users?.length || notFount ? false : true}
         style={{
           width: 200,
           marginLeft: '30px',
@@ -280,7 +286,8 @@ function Users() {
                 </Skeleton>
               </Card>
             ))
-          : createArray(4).map((e) => (
+          : <>
+            {notFount ? <Cascader.Panel className='not_fount' /> : createArray(4).map((e) => (
               <Card
                 key={e}
                 style={{
@@ -307,13 +314,14 @@ function Users() {
                 ></Skeleton>
               </Card>
             ))}
+            </>}
       </div>
-      <Pagination
+      {!notFount ? <Pagination
         className="pagination"
         current={pageNumber}
         onChange={(e) => setPageNumber(e)}
-        total={50}
-      />
+        total={users.length}
+      /> : null}
       <Modal
         className="users-edit"
         title="Foydalanuvchini habari yo'q"

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Card, Popconfirm, message } from 'antd';
+import { Card, Cascader, Popconfirm, message } from 'antd';
 import { Admin, api } from '../../context';
 import { Button } from '@mui/material';
 import { src } from '../../func/src';
@@ -15,9 +15,11 @@ function VideoCRUD({ setVideoCreate, course }) {
   const [videoSrc, setVideoSrc] = useState('');
   const [count, setCount] = useState(0);
   const { setUpdVideo } = useContext(Admin);
+  const [notFount, setNotFount] = useState(false);
 
   useEffect(() => {
     if (course) {
+      setNotFount(false);
       fetch(api + `/admin/course/${course}/video`, {
         headers: {
           Authorization: `Bearer: ${token}`,
@@ -27,6 +29,9 @@ function VideoCRUD({ setVideoCreate, course }) {
         .then((data) =>
           setVideos(data.videos.sort((a, b) => a.sequence - b.sequence)),
         );
+      setTimeout(() => {
+        setNotFount(true);
+      }, 2000);
     }
   }, [token, course, count]);
 
@@ -101,14 +106,14 @@ function VideoCRUD({ setVideoCreate, course }) {
           ))
         ) : (
           <>
-            <Card
+            {notFount ? <Cascader.Panel style={{marginTop: "0px"}} className='not_fount' />  : <Card
               style={{
                 width: '100%',
                 marginTop: 16,
               }}
               className="load"
               loading={true}
-            ></Card>
+            ></Card>}
           </>
         )}
       </ul>

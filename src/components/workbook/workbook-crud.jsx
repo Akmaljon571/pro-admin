@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Admin, api } from '../../context';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import ImageSearchTwoToneIcon from '@mui/icons-material/ImageSearchTwoTone';
-import { Card, Popconfirm, message } from 'antd';
+import { Card, Cascader, Popconfirm, message } from 'antd';
 import poster from '../../img/login_background.png';
 import { src } from '../../func/src';
 
@@ -13,9 +13,11 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
   const { token } = useContext(Admin);
   const [workbookSrc, setWorkbookSrc] = useState('');
   const [count, setCount] = useState(0);
+  const [notFount, setNotFount] = useState(false);
 
   useEffect(() => {
     if (course) {
+      setNotFount(false);
       fetch(api + `/admin/course/${course}/workbook`, {
         headers: {
           Authorization: `Bearer: ${token}`,
@@ -25,6 +27,9 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
         .then((data) =>
           setWorkbooks(data.workbooks.sort((a, b) => a.sequence - b.sequence)),
         );
+        setTimeout(() => {
+          setNotFount(true);
+        }, 2000);
     }
   }, [token, course, count]);
 
@@ -87,14 +92,14 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
           ))
         ) : (
           <>
-            <Card
+            {notFount ? <Cascader.Panel style={{marginTop: "0px"}} className='not_fount' />  : <Card
               style={{
                 width: '100%',
                 marginTop: 16,
               }}
               className="load"
               loading={true}
-            ></Card>
+            ></Card>}
           </>
         )}
       </ul>
