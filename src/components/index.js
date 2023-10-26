@@ -5,7 +5,7 @@ import CourseComponent from './course/course';
 import VideoComponent from './videos/video';
 import UsersComponent from './users/users';
 import WorkbookComponent from './workbook/workbook';
-import TakeComponent from './take/take';
+import TestComponent from './test/test';
 
 export {
   Layout,
@@ -15,5 +15,5 @@ export {
   VideoComponent,
   UsersComponent,
   WorkbookComponent,
-  TakeComponent,
+  TestComponent,
 };

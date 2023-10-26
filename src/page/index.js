@@ -4,6 +4,6 @@ import Course from './course';
 import Video from './video';
 import Users from './users';
 import Workbook from './workbook';
-import Take from './take';
+import Test from './test';
 
-export { Home, Login, Course, Video, Users, Workbook, Take };
+export { Home, Login, Course, Video, Users, Workbook, Test };

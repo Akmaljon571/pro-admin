@@ -12,7 +12,7 @@ function App() {
       path === '/course' ||
       path === '/video' ||
       path === '/workbook' ||
-      path === '/take' ? (
+      path === '/test' ? (
         <Layout>
           <Routers />
         </Layout>

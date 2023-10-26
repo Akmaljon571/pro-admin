@@ -11,7 +11,7 @@ import GroupIcon from '@mui/icons-material/Group';
 import PlayLessonIcon from '@mui/icons-material/PlayLesson';
 import PhotoAlbumIcon from '@mui/icons-material/PhotoAlbum';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import PriceCheckIcon from '@mui/icons-material/PriceCheck';
+import QuizIcon from '@mui/icons-material/Quiz';
 import bg from '../../img/logo.svg';
 import './layout.scss';
 
@@ -97,10 +97,10 @@ function LayoutPage({ children }) {
             },
             {
               key: '6',
-              icon: <PriceCheckIcon style={{ fontSize: '16px' }} />,
-              label: 'Take',
+              icon: <QuizIcon style={{ fontSize: '16px' }} />,
+              label: 'Test',
               onClick: () => {
-                navigate('/take');
+                navigate('/test');
               },
             },
           ]}

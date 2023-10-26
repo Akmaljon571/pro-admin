@@ -1,5 +1,6 @@
 .video-create,
-.workbook-create {
+.workbook-create,
+.test {
   padding-top: 30px;
 
   hr {
@@ -168,7 +169,8 @@
 }
 
 .video,
-.workbook {
+.workbook,
+.test {
   padding-top: 80px;
 
   .workbook-get {
@@ -280,7 +282,8 @@
   }
 }
 
-.material {
+.material,
+.test {
   position: relative;
 
   .fullScrean {
@@ -325,6 +328,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    cursor: pointer;
 
     &::-webkit-scrollbar {
       display: none;
