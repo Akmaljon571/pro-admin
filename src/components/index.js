@@ -6,6 +6,7 @@ import VideoComponent from './videos/video';
 import UsersComponent from './users/users';
 import WorkbookComponent from './workbook/workbook';
 import TestComponent from './test/test';
+import NewsComponent from './news/news';
 
 export {
   Layout,
@@ -16,4 +17,5 @@ export {
   UsersComponent,
   WorkbookComponent,
   TestComponent,
+  NewsComponent,
 };

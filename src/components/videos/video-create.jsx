@@ -242,7 +242,7 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
           Ortga Qaytish
         </Button>
         <Button onClick={sendData} variant="contained">
-          {updVideo ? "Videoni o'zgartirish" : 'Videoni joylash'}
+          {updVideo?._id ? "Videoni o'zgartirish" : 'Videoni joylash'}
         </Button>
       </div>
     </div>

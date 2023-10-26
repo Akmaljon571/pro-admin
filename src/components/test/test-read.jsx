@@ -71,7 +71,7 @@ function TestRead({ course, count, setCount, setRead }) {
         {test.length ? (
           test.map((e, i) => (
             <li key={i}>
-              <span>
+              <span className="workbook-get">
                 <QuizIcon />
               </span>
               <h4>{e.title}</h4>

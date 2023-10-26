@@ -12,7 +12,8 @@ function App() {
       path === '/course' ||
       path === '/video' ||
       path === '/workbook' ||
-      path === '/test' ? (
+      path === '/test' ||
+      path === '/news' ? (
         <Layout>
           <Routers />
         </Layout>

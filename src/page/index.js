@@ -5,5 +5,6 @@ import Video from './video';
 import Users from './users';
 import Workbook from './workbook';
 import Test from './test';
+import News from './news';
 
-export { Home, Login, Course, Video, Users, Workbook, Test };
+export { Home, Login, Course, Video, Users, Workbook, Test, News };

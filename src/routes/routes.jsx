@@ -1,5 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
-import { Home, Login, Course, Video, Users, Workbook, Test } from '../page';
+import {
+  Home,
+  Login,
+  Course,
+  Video,
+  Users,
+  Workbook,
+  Test,
+  News,
+} from '../page';
 
 function Routers() {
   return (
@@ -11,6 +20,7 @@ function Routers() {
       <Route path="/users" element={<Users />} />
       <Route path="/workbook" element={<Workbook />} />
       <Route path="/test" element={<Test />} />
+      <Route path="/news" element={<News />} />
     </Routes>
   );
 }

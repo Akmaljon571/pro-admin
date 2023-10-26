@@ -12,6 +12,7 @@ import PlayLessonIcon from '@mui/icons-material/PlayLesson';
 import PhotoAlbumIcon from '@mui/icons-material/PhotoAlbum';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import QuizIcon from '@mui/icons-material/Quiz';
+import MapsUgcIcon from '@mui/icons-material/MapsUgc';
 import bg from '../../img/logo.svg';
 import './layout.scss';
 
@@ -54,7 +55,9 @@ function LayoutPage({ children }) {
               ? '4'
               : path === '/workbook'
               ? '5'
-              : '6',
+              : path === '/test'
+              ? '6'
+              : '7',
           ]}
           items={[
             {
@@ -101,6 +104,14 @@ function LayoutPage({ children }) {
               label: 'Test',
               onClick: () => {
                 navigate('/test');
+              },
+            },
+            {
+              key: '7',
+              icon: <MapsUgcIcon style={{ fontSize: '16px' }} />,
+              label: 'News',
+              onClick: () => {
+                navigate('/news');
               },
             },
           ]}
