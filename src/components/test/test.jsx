@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { Admin, api } from '../../context';
-import './test.scss';
 import TestRead from './test-read';
 import TestCreate from './test-create';
+import './test.scss';
 
 function Test() {
   const [courses, setcourses] = useState([]);
@@ -38,7 +38,12 @@ function Test() {
             : null}
         </select>
         {read ? (
-          <TestRead course={course} count={count} setRead={setRead} />
+          <TestRead
+            setCount={setCount}
+            course={course}
+            count={count}
+            setRead={setRead}
+          />
         ) : (
           <TestCreate setCount={setCount} setRead={setRead} course={course} />
         )}

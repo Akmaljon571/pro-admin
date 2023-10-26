@@ -127,3 +127,117 @@
     }
   }
 }
+
+.test_update {
+  width: 900px !important;
+  margin-top: -50px;
+
+  .list {
+    height: 500px;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    input {
+      padding: 1px 2px;
+      font-family: Mulish;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 23px;
+      letter-spacing: 0px;
+      text-align: left;
+      color: #1c1e23;
+      border: 1px solid #667085;
+      border-radius: 6px;
+      width: 100%;
+      outline: none;
+    }
+
+    .item {
+      margin-bottom: 30px;
+
+      .top {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: Mulish;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0em;
+        text-align: left;
+
+        h4 {
+          min-height: 20px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          width: 100%;
+
+          .edit {
+            display: none;
+          }
+
+          &:hover .edit {
+            display: block;
+            width: 18px;
+            height: 18px;
+            color: #667085;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .bottom {
+        padding-left: 30px;
+        margin-top: 5px;
+        font-family: Mulish;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 16px;
+        letter-spacing: 0em;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        width: 100%;
+
+        .active {
+          color: green !important;
+        }
+
+        li {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          min-height: 20px;
+          width: 100%;
+
+          .edit {
+            display: none;
+          }
+
+          &:hover .edit {
+            display: block;
+            width: 18px;
+            height: 18px;
+            color: #667085;
+            cursor: pointer;
+          }
+
+          .ok {
+            display: block;
+            width: 22px;
+            height: 22px;
+            color: #667085;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
