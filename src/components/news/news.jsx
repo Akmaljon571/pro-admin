@@ -5,15 +5,19 @@ import { Button } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import MarkunreadIcon from '@mui/icons-material/Markunread';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 import NewsCreate from './news-create';
 import AddIcon from '@mui/icons-material/Add';
 import './news.scss';
+import NewsModal from './news-modal';
 
 function News() {
   const [news, setNews] = useState([]);
   const { token } = useContext(Admin);
   const [newsCreate, setNewsCreate] = useState(false);
-  const [update, setUpdate] = useState({});
+  const [update, setUpdate] = useState({ ok: false });
+  const [edit, setEdit] = useState({});
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     fetch(api + '/admin/news', {
@@ -23,11 +27,12 @@ function News() {
     })
       .then((re) => re.json())
       .then((data) => setNews(data.news));
-  }, [token, newsCreate]);
+  }, [token, newsCreate, count]);
 
   const del = (id) => {
     message.loading("O'chirilmoqda...");
     fetch(api + `/admin/news/${id}`, {
+      method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -35,6 +40,7 @@ function News() {
       .then((re) => re.json())
       .then((data) => {
         if (data.ok) {
+          setCount(count + 1);
           message.destroy();
           message.success("Ma'lumot o'chirildi");
         } else {
@@ -52,25 +58,49 @@ function News() {
       },
     })
       .then((re) => re.json())
-      .then((data) => setUpdate(data.new));
+      .then((data) => {
+        message.destroy();
+        setUpdate(data);
+      });
+  };
+
+  const upd = (id) => {
+    message.loading('Loading...');
+    fetch(api + `/admin/news/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((re) => re.json())
+      .then((data) => {
+        message.destroy();
+        setEdit(data.news);
+        setNewsCreate(true);
+      });
   };
 
   return (
     <div className="news">
       {newsCreate ? (
-        <NewsCreate setNewsCreate={setNewsCreate} updNews={update} />
+        <NewsCreate setNewsCreate={setNewsCreate} updNews={edit} />
       ) : (
         <>
           <div className="top">
             <h2 className="title">Yangiliklar</h2>
-            <Button onClick={() => setNewsCreate(true)} variant="contained">
+            <Button
+              onClick={() => {
+                setNewsCreate(true);
+                setEdit({});
+              }}
+              variant="contained"
+            >
               <AddIcon /> Add Video
             </Button>
           </div>
           <ul className="list">
             {news.length
               ? news.map((e, i) => (
-                  <li onClick={() => setUpdate(e)} key={i}>
+                  <li onClick={() => setUpdate({ ok: false })} key={i}>
                     <span className="workbook-get">
                       <MarkunreadIcon />
                     </span>
@@ -82,6 +112,10 @@ function News() {
                       <VisibilityIcon
                         onClick={() => see(e._id)}
                         className="see"
+                      />
+                      <BorderColorIcon
+                        onClick={() => upd(e._id)}
+                        className="edit"
                       />
                       <Popconfirm
                         title="News o'chiriladi"
@@ -101,6 +135,7 @@ function News() {
           </ul>
         </>
       )}
+      {update.ok ? <NewsModal update={update} /> : null}
     </div>
   );
 }

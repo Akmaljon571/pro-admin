@@ -1,8 +1,9 @@
 import { Modal } from 'antd';
 import { useState } from 'react';
+import { src } from '../../func/src';
 
-function NewsModal() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+function NewsModal({ update: { ok, news } }) {
+  const [isModalOpen, setIsModalOpen] = useState(ok);
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -18,7 +19,12 @@ function NewsModal() {
       open={isModalOpen}
       onOk={handleOk}
       onCancel={handleCancel}
-    ></Modal>
+      className="news_modal"
+    >
+      {news?.image ? <img src={src(news.image)} alt="" /> : null}
+      <h3>{news.title}</h3>
+      <p>{news.description}</p>
+    </Modal>
   );
 }
 

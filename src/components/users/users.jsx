@@ -80,6 +80,10 @@ function Users() {
 
   const showModal = (e) => {
     setReset(e);
+    if (name.current?.value === '') {
+      name.current.value = e.first_name;
+      last.current.value = e.last_name;
+    }
     setIsModalOpen(true);
   };
 
@@ -125,6 +129,9 @@ function Users() {
   };
 
   const handleCancel = () => {
+    setReset({});
+    name.current.value = '';
+    last.current.value = '';
     setIsModalOpen(false);
   };
 
