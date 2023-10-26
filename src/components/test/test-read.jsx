@@ -99,7 +99,12 @@ function TestRead({ course, count, setCount, setRead }) {
         )}
       </ul>
       {update.ok ? (
-        <TestUpdate test={update} setCount={setCount} setUpdate={setUpdate} />
+        <TestUpdate
+          course={course}
+          test={update}
+          setCount={setCount}
+          setUpdate={setUpdate}
+        />
       ) : null}
     </div>
   );
