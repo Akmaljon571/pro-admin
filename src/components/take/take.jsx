@@ -7,9 +7,10 @@ import { Button } from '@mui/material';
 import summa from '../../func/summa';
 import tell from '../../func/tell';
 import './take.scss';
+import { takeLang } from './take.lang';
 
 function Take() {
-  const { token } = useContext(Admin);
+  const { token, l } = useContext(Admin);
   const [users, setUsers] = useState([]);
   const [courses, setCourses] = useState([]);
   const [user, setUser] = useState({});
@@ -96,7 +97,7 @@ function Take() {
 
   return (
     <div className="take">
-      <h1>Take</h1>
+      <h1>{takeLang[l].take}</h1>
       <div className="top">
         <Select
           showSearch
@@ -121,7 +122,7 @@ function Take() {
           style={{
             width: 200,
           }}
-          placeholder="Search to Course title"
+          placeholder={takeLang[l].t2}
           optionFilterProp="children"
           filterOption={(input, option) =>
             (option?.label ?? '').includes(input)
@@ -144,8 +145,8 @@ function Take() {
               <p>{user.last_name}</p>
               <p>{tell(user.phone_number)}</p>
               <span>{user.email}</span>
-              <span>Jami Kurs: {user.total_course} ta</span>
-              <span>Jami foyda: {user.total_amount} so'm</span>
+              <span>{takeLang[l].t3}: {user.total_course} {takeLang[l].ta}</span>
+              <span>{takeLang[l].t4}: {user.total_amount} {takeLang[l].som}</span>
             </div>
           </div>
         ) : (
@@ -157,8 +158,8 @@ function Take() {
             <div className="list-bottom">
               <h3>{course.title}</h3>
               <p>{course.description}</p>
-              <span>{course.videos?.length} Video + Workbook</span>
-              <div>{summa(course.price)}so'm</div>
+              <span>{course.videos?.length} {takeLang[l].t5}</span>
+              <div>{summa(course.price)}{takeLang[l].som}</div>
             </div>
           </div>
         ) : (
@@ -166,7 +167,7 @@ function Take() {
         )}
       </div>
       <Button onClick={sendData} variant="contained">
-        Kursni ochib berish
+        {takeLang[l].t6}
       </Button>
     </div>
   );
