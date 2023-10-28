@@ -98,7 +98,7 @@ function News() {
             </Button>
           </div>
           <ul className="list">
-            {news.length
+            {news?.length
               ? news.map((e, i) => (
                   <li onClick={() => setUpdate({ ok: false })} key={i}>
                     <span className="workbook-get">

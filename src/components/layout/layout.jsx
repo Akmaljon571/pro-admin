@@ -13,6 +13,7 @@ import PhotoAlbumIcon from '@mui/icons-material/PhotoAlbum';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import QuizIcon from '@mui/icons-material/Quiz';
 import MapsUgcIcon from '@mui/icons-material/MapsUgc';
+import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import bg from '../../img/logo.svg';
 import './layout.scss';
 
@@ -57,7 +58,9 @@ function LayoutPage({ children }) {
               ? '5'
               : path === '/test'
               ? '6'
-              : '7',
+              : path === '/take'
+              ? '7'
+              : '8',
           ]}
           items={[
             {
@@ -108,6 +111,14 @@ function LayoutPage({ children }) {
             },
             {
               key: '7',
+              icon: <PriceCheckIcon style={{ fontSize: '16px' }} />,
+              label: 'Take',
+              onClick: () => {
+                navigate('/take');
+              },
+            },
+            {
+              key: '8',
               icon: <MapsUgcIcon style={{ fontSize: '16px' }} />,
               label: 'News',
               onClick: () => {

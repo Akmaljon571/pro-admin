@@ -7,6 +7,7 @@ import UsersComponent from './users/users';
 import WorkbookComponent from './workbook/workbook';
 import TestComponent from './test/test';
 import NewsComponent from './news/news';
+import TakeComponent from './take/take';
 
 export {
   Layout,
@@ -18,4 +19,5 @@ export {
   WorkbookComponent,
   TestComponent,
   NewsComponent,
+  TakeComponent
 };

@@ -13,6 +13,7 @@ function App() {
       path === '/video' ||
       path === '/workbook' ||
       path === '/test' ||
+      path === '/take' ||
       path === '/news' ? (
         <Layout>
           <Routers />
