@@ -7,10 +7,11 @@ import QuizIcon from '@mui/icons-material/Quiz';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import TestUpdate from './test-update';
+import { testLang } from './test.lang';
 
 function TestRead({ course, count, setCount, setRead }) {
   const [update, setUpdate] = useState({ ok: false });
-  const { token } = useContext(Admin);
+  const { token, l } = useContext(Admin);
   const [test, setTest] = useState([]);
 
   useEffect(() => {
@@ -62,9 +63,9 @@ function TestRead({ course, count, setCount, setRead }) {
   return (
     <div className="test_read">
       <div className="top">
-        <h2 className="title">Course Yakuniy testlar</h2>
+        <h2 className="title">{testLang[l].t1}</h2>
         <Button onClick={() => setRead(false)} variant="contained">
-          <AddIcon /> Add Test
+          <AddIcon /> {testLang[l].t2}
         </Button>
       </div>
       <ul className="list">
@@ -80,12 +81,12 @@ function TestRead({ course, count, setCount, setRead }) {
               <div>
                 <VisibilityIcon onClick={() => edit(e._id)} className="see" />
                 <Popconfirm
-                  title="Test o'chiriladi"
-                  description="Ishonchingiz komilmi ?"
+                  title={testLang[l].t3}
+                  description={testLang[l].t4}
                   onConfirm={() => del(e._id)}
                   onCancel={cancel}
-                  okText="Ha"
-                  cancelText="Yoq"
+                  okText={testLang[l].t5}
+                  cancelText={testLang[l].t6}
                 >
                   <DeleteForeverIcon
                     style={{ color: 'red', cursor: 'pointer' }}

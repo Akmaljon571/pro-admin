@@ -145,8 +145,12 @@ function Take() {
               <p>{user.last_name}</p>
               <p>{tell(user.phone_number)}</p>
               <span>{user.email}</span>
-              <span>{takeLang[l].t3}: {user.total_course} {takeLang[l].ta}</span>
-              <span>{takeLang[l].t4}: {user.total_amount} {takeLang[l].som}</span>
+              <span>
+                {takeLang[l].t3}: {user.total_course} {takeLang[l].ta}
+              </span>
+              <span>
+                {takeLang[l].t4}: {user.total_amount} {takeLang[l].som}
+              </span>
             </div>
           </div>
         ) : (
@@ -158,8 +162,13 @@ function Take() {
             <div className="list-bottom">
               <h3>{course.title}</h3>
               <p>{course.description}</p>
-              <span>{course.videos?.length} {takeLang[l].t5}</span>
-              <div>{summa(course.price)}{takeLang[l].som}</div>
+              <span>
+                {course.videos?.length} {takeLang[l].t5}
+              </span>
+              <div>
+                {summa(course.price)}
+                {takeLang[l].som}
+              </div>
             </div>
           </div>
         ) : (

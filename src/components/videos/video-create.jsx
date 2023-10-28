@@ -6,9 +6,10 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { message } from 'antd';
 import { src } from '../../func/src';
 import './video.scss';
+import { videoLang } from './video.lang';
 
 function VideoCreate({ setVideoCreate, course, count, setCount }) {
-  const { token } = useContext(Admin);
+  const { token, l } = useContext(Admin);
   const [vid, setVid] = useState('');
   const [video, setVideo] = useState('');
   const [messageApi, contextHolder] = message.useMessage();
@@ -173,38 +174,38 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
       {contextHolder}
       <div className="title">
         <div className="top">
-          <h3>Video Sarlavhasi</h3>
+          <h3>{videoLang[l].t8}</h3>
           <Button onClick={() => setVideoCreate(false)} variant="contained">
             <ArrowBackIcon />
           </Button>
         </div>
         <input
           defaultValue={updVideo?.title}
-          placeholder="Sarlavha"
+          placeholder={videoLang[l].t8}
           ref={title}
           type="text"
         />
       </div>
       <div className="level">
         <h3>
-          Video Ketma-ketligi
+          {videoLang[l].t9}
           {updVideo?.sequence
-            ? `. Hozirgi o'rni ${updVideo?.sequence}-dars`
+            ? `. ${videoLang[l].t10} ${updVideo?.sequence}-${videoLang[l].t11}`
             : ''}
         </h3>
         <select ref={seq}>
           <option type="others" hidden>
-            Video nechinchi dars?
+            {videoLang[l].t12}
           </option>
           {item.map((e) => (
             <option key={e} value={e}>
-              {e}-dars
+              {e}-{videoLang[l].t11}
             </option>
           ))}
         </select>
       </div>
       <div className="yukla">
-        <h2>Video yuklash</h2>
+        <h2>{videoLang[l].t13}</h2>
         <hr />
         <label>
           {vid || updVideo?.file_id ? (
@@ -212,7 +213,7 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
           ) : (
             <>
               <TheatersIcon />
-              <p>Video kursni yuklang</p>
+              <p>{videoLang[l].t14}</p>
             </>
           )}
           <input
@@ -223,11 +224,11 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
           />
         </label>
         <Button onClick={clear} variant="contained">
-          Videoni o'chirish
+          {videoLang[l].t15}
         </Button>
       </div>
       <div className="comment">
-        <h2>Video comment</h2>
+        <h2>{videoLang[l].t16}</h2>
         <hr />
         <textarea
           defaultValue={updVideo.description}
@@ -239,10 +240,10 @@ function VideoCreate({ setVideoCreate, course, count, setCount }) {
       </div>
       <div className="btns">
         <Button onClick={() => setVideoCreate(false)} variant="outlined">
-          Ortga Qaytish
+          {videoLang[l].t17}
         </Button>
         <Button onClick={sendData} variant="contained">
-          {updVideo?._id ? "Videoni o'zgartirish" : 'Videoni joylash'}
+          {updVideo?._id ? videoLang[l].t18 : videoLang[l].t19}
         </Button>
       </div>
     </div>

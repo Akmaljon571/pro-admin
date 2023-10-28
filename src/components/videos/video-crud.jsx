@@ -8,10 +8,11 @@ import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import AddIcon from '@mui/icons-material/Add';
 import player from '../../img/video-player.svg';
 import poster from '../../img/login_background.png';
+import { videoLang } from './video.lang';
 
 function VideoCRUD({ setVideoCreate, course }) {
   const [videos, setVideos] = useState([]);
-  const { token } = useContext(Admin);
+  const { token, l } = useContext(Admin);
   const [videoSrc, setVideoSrc] = useState('');
   const [count, setCount] = useState(0);
   const { setUpdVideo } = useContext(Admin);
@@ -61,7 +62,7 @@ function VideoCRUD({ setVideoCreate, course }) {
   return (
     <div className="video">
       <div className="top">
-        <h2 className="title">Video darslik yuklash</h2>
+        <h2 className="title">{videoLang[l].t1}</h2>
         <Button
           onClick={() => {
             setVideoCreate(true);
@@ -69,7 +70,7 @@ function VideoCRUD({ setVideoCreate, course }) {
           }}
           variant="contained"
         >
-          <AddIcon /> Add Video
+          <AddIcon /> {videoLang[l].t2}
         </Button>
       </div>
       <ul className="list">
@@ -82,7 +83,9 @@ function VideoCRUD({ setVideoCreate, course }) {
                 alt="Video_player"
               />
               <h4>{e.title}</h4>
-              <span>{e.sequence} Dars</span>
+              <span>
+                {e.sequence} {videoLang[l].t3}
+              </span>
               <div>
                 <DriveFileRenameOutlineTwoToneIcon
                   onClick={() => {
@@ -92,12 +95,12 @@ function VideoCRUD({ setVideoCreate, course }) {
                   className="edit"
                 />
                 <Popconfirm
-                  title="Videoni o'chirmoqchimisiz"
-                  description="Ishonchingiz komilmi?"
+                  title={videoLang[l].t4}
+                  description={videoLang[l].t5}
                   onConfirm={() => remove(e._id)}
                   onCancel={cancel}
-                  okText="Ha"
-                  cancelText="Yoq"
+                  okText={videoLang[l].t6}
+                  cancelText={videoLang[l].t7}
                 >
                   <DeleteForeverTwoToneIcon />
                 </Popconfirm>

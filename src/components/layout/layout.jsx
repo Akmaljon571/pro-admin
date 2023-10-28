@@ -15,12 +15,13 @@ import QuizIcon from '@mui/icons-material/Quiz';
 import MapsUgcIcon from '@mui/icons-material/MapsUgc';
 import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import bg from '../../img/logo.svg';
+import { language } from './laylout.lang';
 import './layout.scss';
 
 function LayoutPage({ children }) {
   const { Header, Sider, Content } = Layout;
   const [collapsed, setCollapsed] = useState(false);
-  const { token, setToken } = useContext(Admin);
+  const { token, setToken, l, setLang } = useContext(Admin);
   const path = useLocation().pathname;
   const navigate = useNavigate();
 
@@ -66,13 +67,13 @@ function LayoutPage({ children }) {
             {
               key: '1',
               icon: <HomeOutlined />,
-              label: 'Dashboard',
+              label: language[l].t1,
               onClick: () => navigate('/'),
             },
             {
               key: '2',
               icon: <GroupIcon style={{ fontSize: '16px' }} />,
-              label: 'Users',
+              label: language[l].t2,
               onClick: () => {
                 navigate('/users');
               },
@@ -80,7 +81,7 @@ function LayoutPage({ children }) {
             {
               key: '3',
               icon: <PhotoAlbumIcon style={{ fontSize: '16px' }} />,
-              label: 'Course',
+              label: language[l].t3,
               onClick: () => {
                 navigate('/course');
               },
@@ -88,7 +89,7 @@ function LayoutPage({ children }) {
             {
               key: '4',
               icon: <PlayLessonIcon style={{ fontSize: '16px' }} />,
-              label: 'Video',
+              label: language[l].t4,
               onClick: () => {
                 navigate('/video');
               },
@@ -96,7 +97,7 @@ function LayoutPage({ children }) {
             {
               key: '5',
               icon: <AutoStoriesIcon style={{ fontSize: '16px' }} />,
-              label: 'Workbook',
+              label: language[l].t5,
               onClick: () => {
                 navigate('/workbook');
               },
@@ -104,7 +105,7 @@ function LayoutPage({ children }) {
             {
               key: '6',
               icon: <QuizIcon style={{ fontSize: '16px' }} />,
-              label: 'Test',
+              label: language[l].t6,
               onClick: () => {
                 navigate('/test');
               },
@@ -112,7 +113,7 @@ function LayoutPage({ children }) {
             {
               key: '7',
               icon: <PriceCheckIcon style={{ fontSize: '16px' }} />,
-              label: 'Take',
+              label: language[l].t7,
               onClick: () => {
                 navigate('/take');
               },
@@ -120,7 +121,7 @@ function LayoutPage({ children }) {
             {
               key: '8',
               icon: <MapsUgcIcon style={{ fontSize: '16px' }} />,
-              label: 'News',
+              label: language[l].t8,
               onClick: () => {
                 navigate('/news');
               },
@@ -145,11 +146,20 @@ function LayoutPage({ children }) {
               d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
             />
           </svg>
-          <span className="footer-text">Chiqish</span>
+          <span className="footer-text">{language[l].t9}</span>
         </footer>
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: '#fff' }}>
+        <Header
+          style={{
+            padding: 0,
+            background: '#fff',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            paddingRight: '25px',
+          }}
+        >
           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
@@ -160,6 +170,10 @@ function LayoutPage({ children }) {
               height: 64,
             }}
           />
+          <select className="select" onChange={(e) => setLang(e.target.value)}>
+            <option value="uz">Uzb</option>
+            <option value="kr">Kor</option>
+          </select>
         </Header>
         <Content>
           <main className="main">{children}</main>

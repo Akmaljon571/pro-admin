@@ -4,11 +4,12 @@ import { Button } from '@mui/material';
 import { useContext, useRef, useState } from 'react';
 import { message } from 'antd';
 import { Admin, api } from '../../context';
+import { testLang } from './test.lang';
 
 function TestCreate({ setRead, setCount, course }) {
   const title = useRef();
   const des = useRef();
-  const { token } = useContext(Admin);
+  const { token, l } = useContext(Admin);
   const [list, setList] = useState([1]);
 
   const click = () => {
@@ -79,20 +80,20 @@ function TestCreate({ setRead, setCount, course }) {
     <div className="test_create">
       <div className="title">
         <div className="top">
-          <h2>Workbook Sarlavhasi</h2>
+          <h2>{testLang[l].t7}</h2>
           <Button onClick={() => setRead(true)} variant="contained">
             <ArrowBackIcon />
           </Button>
         </div>
         <hr />
         <label>
-          <span>Title</span>
-          <input placeholder="Sarlavha" ref={title} type="text" />
+          <span>{testLang[l].t8}</span>
+          <input placeholder={testLang[l].t8} ref={title} type="text" />
         </label>
         <hr />
         <label>
-          <span>Description</span>
-          <input placeholder="Sarlavha" ref={des} type="text" />
+          <span>{testLang[l].t9}</span>
+          <input placeholder={testLang[l].t9} ref={des} type="text" />
         </label>
       </div>
       <div className="savol">
@@ -102,9 +103,9 @@ function TestCreate({ setRead, setCount, course }) {
               <div className="quiz">
                 <span className="seq">{e})</span>
                 <label>
-                  <span>Savol</span>
+                  <span>{testLang[l].t10}</span>
                   <input
-                    placeholder="Savol"
+                    placeholder={testLang[l].t10}
                     name={`question${e}`}
                     type="text"
                   />
@@ -138,7 +139,7 @@ function TestCreate({ setRead, setCount, course }) {
             <AddIcon />
           </span>
           <span className="send" onClick={click}>
-            Send
+            {testLang[l].t11}
           </span>
         </div>
       </div>

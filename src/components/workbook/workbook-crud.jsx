@@ -7,10 +7,11 @@ import { useContext, useEffect, useState } from 'react';
 import { Admin, api } from '../../context';
 import { Card, Cascader, Popconfirm, message } from 'antd';
 import { src } from '../../func/src';
+import { bookLang } from './workbook.lang';
 
 function WorkbookCRUD({ setWorkbookCreate, course }) {
   const [workbooks, setWorkbooks] = useState([]);
-  const { token } = useContext(Admin);
+  const { token, l } = useContext(Admin);
   const [workbookSrc, setWorkbookSrc] = useState('');
   const [count, setCount] = useState(0);
   const [notFount, setNotFount] = useState(false);
@@ -42,7 +43,6 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
     })
       .then((re) => re.json())
       .then((data) => {
-        console.log(data);
         if (data.ok) {
           message.success('Delete workbook');
           setCount(count + 1);
@@ -59,9 +59,9 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
   return (
     <div className="workbook">
       <div className="top">
-        <h2 className="title">Workbook yuklash</h2>
+        <h2 className="title">{bookLang[l].t1}</h2>
         <Button onClick={() => setWorkbookCreate(true)} variant="contained">
-          <AddIcon /> Add Workbook
+          <AddIcon /> {bookLang[l].t2}
         </Button>
       </div>
       <ul className="list">
@@ -75,15 +75,17 @@ function WorkbookCRUD({ setWorkbookCreate, course }) {
                 <ImageSearchTwoToneIcon />
               </span>
               <h4>{e.title}</h4>
-              <span>{e.sequence} Dars</span>
+              <span>
+                {e.sequence} {bookLang[l].t3}
+              </span>
               <div>
                 <Popconfirm
-                  title="workbookni o'chirmoqchimisiz"
-                  description="Ishonchingiz komilmi?"
+                  title={bookLang[l].t4}
+                  description={bookLang[l].t5}
                   onConfirm={() => remove(e._id)}
                   onCancel={cancel}
-                  okText="Ha"
-                  cancelText="Yoq"
+                  okText={bookLang[l].t6}
+                  cancelText={bookLang[l].t7}
                 >
                   <DeleteForeverTwoToneIcon />
                 </Popconfirm>

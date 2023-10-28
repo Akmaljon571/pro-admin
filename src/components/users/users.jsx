@@ -21,11 +21,12 @@ import { createArray } from '../../func/array';
 import { src } from '../../func/src';
 import Search from 'antd/es/input/Search';
 import './users.scss';
+import { usersLang } from './users.lang';
 const { Meta } = Card;
 
 function Users() {
   const [users, setUsers] = useState([]);
-  const { token } = useContext(Admin);
+  const { token, l } = useContext(Admin);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [image, setImage] = useState('');
   const [count, setCount] = useState(0);
@@ -181,9 +182,9 @@ function Users() {
 
   return (
     <div className="users">
-      <h2>Users</h2>
+      <h2>{usersLang[l].t1}</h2>
       <Search
-        placeholder="E-Mail search"
+        placeholder={usersLang[l].t2}
         onChange={(e) => setSearchEmail(e.target.value)}
         loading={users?.length || notFount ? false : true}
         className="search"
@@ -193,7 +194,7 @@ function Users() {
         }}
       />
       <Search
-        placeholder="Phone Number search"
+        placeholder={usersLang[l].t3}
         onChange={(e) => setSearchPhone(e.target.value)}
         onKeyDown={codeFilter}
         className="search"
@@ -209,12 +210,12 @@ function Users() {
         style={{ width: 120, marginLeft: '30px' }}
         onChange={(e) => setStatus(e)}
         options={[
-          { value: 'Active', label: 'Active' },
-          { value: 'Blocked', label: 'Blocked' },
+          { value: 'Active', label: usersLang[l].t4 },
+          { value: 'Blocked', label: usersLang[l].t5 },
         ]}
       />
       <Select
-        defaultValue="Ro'yxat uzunligi"
+        defaultValue={usersLang[l].t6}
         style={{ width: 150, marginLeft: '30px' }}
         onChange={(e) => setPageSize(e)}
         options={[
@@ -242,17 +243,17 @@ function Users() {
                   {e.status === 'Active' ? (
                     <>
                       <Popconfirm
-                        title="Foydalanuvchini Block qilish"
+                        title={usersLang[l].t7}
                         description={
                           <span>
-                            Ishonchingiz komilmi? <br /> Foydanaluvchini qora
-                            ro'yxatga tushgach <br /> ortga qaytarish imkoni yoq
+                            {usersLang[l].t8} <br /> {usersLang[l].t9} <br />{' '}
+                            {usersLang[l].t10}
                           </span>
                         }
                         onConfirm={() => remove(e._id)}
                         onCancel={cancel}
-                        okText="Yes"
-                        cancelText="No"
+                        okText={usersLang[l].t11}
+                        cancelText={usersLang[l].t12}
                       >
                         <Button variant="text">
                           <DeleteForeverIcon key="ellipsis" />
@@ -286,12 +287,14 @@ function Users() {
                       <b>{e?.last_name}</b> <span>{e.email}</span>
                       <i>{tell(e.phone_number)}</i>
                       <br />
-                      <code>status: {e.status}</code>
+                      <code>
+                        {usersLang[l].t13}: {e.status}
+                      </code>
                       <span className="course_data">
-                        Jami Kurs: {e.total_course} ta
+                        {usersLang[l].t14}: {e.total_course} {usersLang[l].ta}
                       </span>
                       <span className="course_data1">
-                        Jami foyda: {e.total_amount} so'm
+                        {usersLang[l].t15}: {e.total_amount} {usersLang[l].som}
                       </span>
                     </>
                   }
@@ -343,22 +346,22 @@ function Users() {
       />
       <Modal
         className="users-edit"
-        title="Foydalanuvchini habari yo'q"
+        title={usersLang[l].t16}
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
         <div className="users-edit-content">
           <label>
-            <span>Ismi</span>
+            <span>{usersLang[l].t17}</span>
             <input defaultValue={reset?.first_name} ref={name} type="text" />
           </label>
           <label>
-            <span>Familiya</span>
+            <span>{usersLang[l].t18}</span>
             <input defaultValue={reset?.last_name} ref={last} type="text" />
           </label>
           <label>
-            <span>Rasmi</span>
+            <span>{usersLang[l].t19}</span>
             <input onChange={file} type="file" />
           </label>
         </div>

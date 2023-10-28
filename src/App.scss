@@ -37,6 +37,14 @@ code {
   display: none;
 }
 
+.select {
+  margin-left: 20px;
+  border: 1px dashed #aaa;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+}
+
 a {
   text-decoration: none;
   color: #1c1e23;

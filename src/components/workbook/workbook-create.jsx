@@ -4,9 +4,10 @@ import { Admin, api } from '../../context';
 import { useContext, useRef, useState } from 'react';
 import MenuBookTwoToneIcon from '@mui/icons-material/MenuBookTwoTone';
 import { message } from 'antd';
+import { bookLang } from './workbook.lang';
 
 function WorkbookCreate({ setWorkbookCreate, course, count, setCount }) {
-  const { token } = useContext(Admin);
+  const { token, l } = useContext(Admin);
   const [vid, setVid] = useState('');
   const [workbook, setWorkbook] = useState('');
   const [messageApi, contextHolder] = message.useMessage();
@@ -97,7 +98,7 @@ function WorkbookCreate({ setWorkbookCreate, course, count, setCount }) {
       {contextHolder}
       <div className="title">
         <div className="top">
-          <h2>Workbook Sarlavhasi</h2>
+          <h2>{bookLang[l].t8}</h2>
           <Button onClick={() => setWorkbookCreate(false)} variant="contained">
             <ArrowBackIcon />
           </Button>
@@ -106,17 +107,17 @@ function WorkbookCreate({ setWorkbookCreate, course, count, setCount }) {
         <input placeholder="Sarlavha" ref={title} type="text" />
       </div>
       <div className="yukla">
-        <h2>Workbook yuklash</h2>
+        <h2>{bookLang[l].t9}</h2>
         <hr />
         <label>
           {vid ? (
             <a href={vid} target="_blank" rel="noreferrer">
-              PDF rasm ko'rish
+              {bookLang[l].t10}
             </a>
           ) : (
             <>
               <MenuBookTwoToneIcon />
-              <p>workbook kursni yuklang</p>
+              <p>{bookLang[l].t11}</p>
             </>
           )}
           <input
@@ -127,15 +128,15 @@ function WorkbookCreate({ setWorkbookCreate, course, count, setCount }) {
           />
         </label>
         <Button onClick={clear} variant="contained">
-          workbookni o'chirish
+          {bookLang[l].t12}
         </Button>
       </div>
       <div className="btns">
         <Button onClick={() => setWorkbookCreate(false)} variant="outlined">
-          Ortga Qaytish
+          {bookLang[l].t13}
         </Button>
         <Button onClick={sendData} variant="contained">
-          workbookni joylash
+          {bookLang[l].t14}
         </Button>
       </div>
     </div>
