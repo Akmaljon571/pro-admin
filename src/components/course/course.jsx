@@ -5,11 +5,12 @@ import { Admin, api } from '../../context';
 import { Modal, message } from 'antd';
 import CourseList from './list';
 import './course.scss';
+import { courseLang } from './course.lang';
 
 function Course() {
   const [course, setCourse] = useState([]);
   const [count, setCount] = useState(0);
-  const { token } = useContext(Admin);
+  const { token, l } = useContext(Admin);
   const [img, setImg] = useState('');
   const [imgString, setImgString] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -168,7 +169,7 @@ function Course() {
     <div className="course">
       {contextHolder}
       <div className="top">
-        <h2>Kurslar</h2>
+        <h2>{courseLang[l].t1}</h2>
         <Button onClick={showModal} variant="contained">
           <AddIcon />
         </Button>
@@ -187,19 +188,19 @@ function Course() {
         onCancel={handleCancel}
       >
         <label>
-          <span>Sarlavha</span>
+          <span>{courseLang[l].t2}</span>
           <input ref={titleRef} type="text" />
         </label>
         <label>
-          <span>Narxi</span>
+          <span>{courseLang[l].t3}</span>
           <input ref={priceRef} type="number" />
         </label>
         <label>
-          <span>Ketma-Ketlik</span>
+          <span>{courseLang[l].t4}</span>
           <input ref={seqRef} type="number" />
         </label>
         <label>
-          <span>Izoh</span>
+          <span>{courseLang[l].t5}</span>
           <textarea
             ref={desRef}
             cols="30"
@@ -208,7 +209,7 @@ function Course() {
           ></textarea>
         </label>
         <label className="img">
-          <span>Image</span>
+          <span>{courseLang[l].t6}</span>
           <img
             src={
               img

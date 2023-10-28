@@ -32,7 +32,7 @@ function News() {
   const del = (id) => {
     message.loading("O'chirilmoqda...");
     fetch(api + `/admin/news/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,
       },

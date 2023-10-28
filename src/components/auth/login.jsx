@@ -4,13 +4,14 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { message } from 'antd';
 import { Admin, api } from '../../context';
 import './auth.scss';
+import { loginLang } from './login.lang';
 
 function Login() {
   const number = useRef();
   const pass = useRef();
   const codeRef = useRef();
   const [messageApi, contextHolder] = message.useMessage();
-  const { setToken, token } = useContext(Admin);
+  const { setToken, token, l, setLang } = useContext(Admin);
   const [login, setLogin] = useState('');
   const navigate = useNavigate();
   const [phoneNumber, setPhoneNumber] = useState(0);
@@ -177,23 +178,29 @@ function Login() {
     <div className="login">
       {contextHolder}
       <div className="login_form">
-        <h1>Admin Panel</h1>
-        <p>Admin Telefon nomeri orqali</p>
+        <h1>{loginLang[l].t1}</h1>
+        <p>
+          {loginLang[l].t2}
+          <select onChange={(e) => setLang(e.target.value)}>
+            <option value="uz">Uz</option>
+            <option value="kr">Kr</option>
+          </select>
+        </p>
         {!login ? (
           <>
             <label>
-              <span>Telefon Nomer</span>
+              <span>{loginLang[l].t3}</span>
               <input ref={number} onKeyDown={phone} type="text" />
             </label>
             <label>
-              <span>Parol</span>
+              <span>{loginLang[l].t4}</span>
               <input ref={pass} maxLength={8} type="password" />
             </label>
           </>
         ) : (
           <>
             <label>
-              <span>Kodni kiriting</span>
+              <span>{loginLang[l].t5}</span>
               <input
                 defaultValue={''}
                 onKeyDown={codeFilter}
@@ -210,7 +217,7 @@ function Login() {
           className="btn"
           variant="contained"
         >
-          Kirish
+          {loginLang[l].t6}
         </Button>
       </div>
     </div>

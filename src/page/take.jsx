@@ -1,7 +1,7 @@
-import { TakeComponent } from "../components";
+import { TakeComponent } from '../components';
 
 function Take() {
-    return <TakeComponent />;
+  return <TakeComponent />;
 }
 
 export default Take;

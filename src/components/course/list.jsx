@@ -4,9 +4,10 @@ import { Button } from '@mui/material';
 import { Modal, Popconfirm, message } from 'antd';
 import { src } from '../../func/src';
 import summa from '../../func/summa';
+import { courseLang } from './course.lang';
 
 function CourseList({ e, setCount, count }) {
-  const { token } = useContext(Admin);
+  const { token, l } = useContext(Admin);
   const [img, setImg] = useState('');
   const [imgString, setImgString] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -168,14 +169,19 @@ function CourseList({ e, setCount, count }) {
       <div className="bottom">
         <h3>{e.title}</h3>
         <p>{e.description}</p>
-        <span>{e.video_count} Video + Workbook</span>
-        <div>{summa(e.price)}so'm</div>
+        <span>
+          {e.video_count} {courseLang[l].t7}
+        </span>
+        <div>
+          {summa(e.price)}
+          {courseLang[l].t8}
+        </div>
         <Button
           onClick={() => showModal(e._id)}
           style={{ width: '45%', marginRight: '10%' }}
           variant="outlined"
         >
-          O'zgartirish
+          {courseLang[l].t9}
         </Button>
         <Popconfirm
           title="O'chirmoqchimisz"
@@ -186,7 +192,7 @@ function CourseList({ e, setCount, count }) {
           cancelText="No"
         >
           <Button style={{ width: '45%' }} variant="contained">
-            O'chirish
+            {courseLang[l].t10}
           </Button>
         </Popconfirm>
       </div>
@@ -197,19 +203,19 @@ function CourseList({ e, setCount, count }) {
         onCancel={handleCancel}
       >
         <label>
-          <span>Sarlavha</span>
+          <span>{courseLang[l].t11}</span>
           <input defaultValue={value?.title} ref={titleRef} type="text" />
         </label>
         <label>
-          <span>Narxi</span>
+          <span>{courseLang[l].t12}</span>
           <input defaultValue={value?.price} ref={priceRef} type="number" />
         </label>
         <label>
-          <span>Ketma-Ketlik</span>
+          <span>{courseLang[l].t13}</span>
           <input defaultValue={value?.level} ref={seqRef} type="number" />
         </label>
         <label>
-          <span>Izoh</span>
+          <span>{courseLang[l].t14}</span>
           <textarea
             ref={desRef}
             cols="30"
@@ -219,7 +225,7 @@ function CourseList({ e, setCount, count }) {
           ></textarea>
         </label>
         <label className="img">
-          <span>Image</span>
+          <span>{courseLang[l].t15}</span>
           {!img && value?.image ? (
             <img src={src(value.image)} alt="Loading" />
           ) : (

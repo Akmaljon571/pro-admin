@@ -19,5 +19,5 @@ export {
   WorkbookComponent,
   TestComponent,
   NewsComponent,
-  TakeComponent
+  TakeComponent,
 };

@@ -5,6 +5,7 @@ import Search from 'antd/es/input/Search';
 import { src } from '../../func/src';
 import tell from '../../func/tell';
 import summa from '../../func/summa';
+import { dashboardLang } from './dashboard.lang';
 
 const columns = [
   {
@@ -51,7 +52,7 @@ const columns = [
 
 function StaticsTable() {
   const [users, setUsers] = useState([]);
-  const { token } = useContext(Admin);
+  const { token, l } = useContext(Admin);
   const [search, setSearch] = useState('');
 
   useEffect(() => {
@@ -96,8 +97,8 @@ function StaticsTable() {
     <div className="bottom">
       <div className="head">
         <div>
-          <h3>O’quvchilar reytingi</h3>
-          <p>O’quvchilarning monitoring ro’yxati</p>
+          <h3>{dashboardLang[l].t5}</h3>
+          <p>{dashboardLang[l].t6}</p>
         </div>
         <Search
           placeholder="User search"

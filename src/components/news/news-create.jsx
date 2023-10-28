@@ -16,37 +16,39 @@ function NewsCreate({ setNewsCreate, updNews = {} }) {
     if (updNews?.title) {
       const newsData = {
         title: title.current.value ? title.current.value : updNews.title,
-        description: text.current.value ? text.current.value : updNews.description,
+        description: text.current.value
+          ? text.current.value
+          : updNews.description,
         image: img || updNews.image,
       };
-  
-        message.loading("Ma'lumot tekshirilmoqda...");
-        fetch(api + `/admin/news/${updNews._id}`, {
-          method: 'PUT',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newsData),
-        })
-          .then((re) => re.json())
-          .then((data) => {
-            if (data) {
-              message.destroy();
-              message.success("Ma'lumot o'zgardi");
-              setNewsCreate(false);
-            } else {
-              message.destroy();
-              message.error("Ma'lumot hato");
-            }
-          });
+
+      message.loading("Ma'lumot tekshirilmoqda...");
+      fetch(api + `/admin/news/${updNews._id}`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newsData),
+      })
+        .then((re) => re.json())
+        .then((data) => {
+          if (data) {
+            message.destroy();
+            message.success("Ma'lumot o'zgardi");
+            setNewsCreate(false);
+          } else {
+            message.destroy();
+            message.error("Ma'lumot hato");
+          }
+        });
     } else {
       const newsData = {
         title: title.current.value,
         description: text.current.value,
         image: img,
       };
-  
+
       if (title.current.value && text.current.value) {
         message.loading("Ma'lumot tekshirilmoqda...");
         fetch(api + '/admin/news', {

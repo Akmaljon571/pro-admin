@@ -9,7 +9,8 @@ export const AdminPriveder = ({ children }) => {
     JSON.parse(localStorage.getItem('admin_token')) || '',
   );
   const [updVideo, setUpdVideo] = useState([]);
-  const data = { token, setToken, updVideo, setUpdVideo };
+  const [l, setLang] = useState('uz');
 
+  const data = { token, setToken, updVideo, setUpdVideo, l, setLang };
   return <Admin.Provider value={data}>{children}</Admin.Provider>;
 };

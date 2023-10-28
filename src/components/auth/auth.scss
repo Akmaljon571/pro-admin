@@ -19,6 +19,14 @@
     display: flex;
     flex-direction: column;
 
+    select {
+      margin-left: 20px;
+      border: 1px dashed #aaa;
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+    }
+
     h1 {
       font-family: Mulish;
       font-size: 42px;
