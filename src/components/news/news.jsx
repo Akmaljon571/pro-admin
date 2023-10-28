@@ -8,12 +8,13 @@ import MarkunreadIcon from '@mui/icons-material/Markunread';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import NewsCreate from './news-create';
 import AddIcon from '@mui/icons-material/Add';
-import './news.scss';
 import NewsModal from './news-modal';
+import './news.scss';
+import { courseLang } from './news.lang';
 
 function News() {
   const [news, setNews] = useState([]);
-  const { token } = useContext(Admin);
+  const { token, l } = useContext(Admin);
   const [newsCreate, setNewsCreate] = useState(false);
   const [update, setUpdate] = useState({ ok: false });
   const [edit, setEdit] = useState({});
@@ -86,7 +87,7 @@ function News() {
       ) : (
         <>
           <div className="top">
-            <h2 className="title">Yangiliklar</h2>
+            <h2 className="title">{courseLang[l].t1}</h2>
             <Button
               onClick={() => {
                 setNewsCreate(true);
@@ -94,7 +95,7 @@ function News() {
               }}
               variant="contained"
             >
-              <AddIcon /> Add Video
+              <AddIcon /> {courseLang[l].t2}
             </Button>
           </div>
           <ul className="list">
@@ -118,11 +119,11 @@ function News() {
                         className="edit"
                       />
                       <Popconfirm
-                        title="News o'chiriladi"
-                        description="Ishonchingiz komilmi ?"
+                        title={courseLang[l].t3}
+                        description={courseLang[l].t4}
                         onConfirm={() => del(e._id)}
-                        okText="Ha"
-                        cancelText="Yoq"
+                        okText={courseLang[l].t5}
+                        cancelText={courseLang[l].t6}
                       >
                         <DeleteForeverIcon
                           style={{ color: 'red', cursor: 'pointer' }}

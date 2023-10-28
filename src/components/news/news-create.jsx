@@ -5,11 +5,12 @@ import { Button } from '@mui/material';
 import { src } from '../../func/src';
 import { Admin, api } from '../../context';
 import { message } from 'antd';
+import { courseLang } from './news.lang';
 
 function NewsCreate({ setNewsCreate, updNews = {} }) {
   const title = useRef();
   const text = useRef();
-  const { token } = useContext(Admin);
+  const { token, l } = useContext(Admin);
   const [img, setImg] = useState('');
 
   const sendData = () => {
@@ -109,7 +110,7 @@ function NewsCreate({ setNewsCreate, updNews = {} }) {
     <div className="news-create">
       <div className="title">
         <div className="top">
-          <h3>News Sarlavhasi</h3>
+          <h3>{courseLang[l].t7}</h3>
           <Button onClick={() => setNewsCreate(false)} variant="contained">
             <ArrowBackIcon />
           </Button>
@@ -122,14 +123,14 @@ function NewsCreate({ setNewsCreate, updNews = {} }) {
         />
       </div>
       <div className="yukla">
-        <h3>News Rasmi (Ixtiyoriy)</h3>
+        <h3>{courseLang[l].t8}</h3>
         <label>
           {img || updNews?.image ? (
             <img src={src(img || updNews?.image)} alt="" />
           ) : (
             <>
               <ImageIcon />
-              <p>News uchun Rasm yuklang</p>
+              <p>{courseLang[l].t9}</p>
             </>
           )}
           <input
@@ -141,7 +142,7 @@ function NewsCreate({ setNewsCreate, updNews = {} }) {
         </label>
       </div>
       <div className="comment">
-        <h3>News comment</h3>
+        <h3>{courseLang[l].t10}</h3>
         <textarea
           defaultValue={updNews?.description}
           ref={text}
@@ -152,10 +153,10 @@ function NewsCreate({ setNewsCreate, updNews = {} }) {
       </div>
       <div className="btns">
         <Button onClick={() => setNewsCreate(false)} variant="outlined">
-          Ortga Qaytish
+          {courseLang[l].t11}
         </Button>
         <Button onClick={sendData} variant="contained">
-          {updNews?._id ? "newsni o'zgartirish" : 'newsni joylash'}
+          {updNews?._id ? courseLang[l].t12 : courseLang[l].t13}
         </Button>
       </div>
     </div>
