@@ -41,7 +41,6 @@ function LayoutPage({ children }) {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <Link className="logo" to={'/'}>
           <img src={bg} alt="Company Logo" />
-          <h2 className="-h2">LinCor</h2>
         </Link>
         <Menu
           theme="dark"
