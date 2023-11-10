@@ -8,7 +8,6 @@ import {
   Workbook,
   Test,
   News,
-  Take,
 } from '../page';
 
 function Routers() {
@@ -21,7 +20,6 @@ function Routers() {
       <Route path="/users" element={<Users />} />
       <Route path="/workbook" element={<Workbook />} />
       <Route path="/test" element={<Test />} />
-      <Route path="/take" element={<Take />} />
       <Route path="/news" element={<News />} />
     </Routes>
   );

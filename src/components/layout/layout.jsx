@@ -13,7 +13,6 @@ import PhotoAlbumIcon from '@mui/icons-material/PhotoAlbum';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import QuizIcon from '@mui/icons-material/Quiz';
 import MapsUgcIcon from '@mui/icons-material/MapsUgc';
-import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 import bg from '../../img/logo.svg';
 import { language } from './laylout.lang';
 import './layout.scss';
@@ -49,18 +48,16 @@ function LayoutPage({ children }) {
             path === '/'
               ? '1'
               : path === '/users'
-              ? '2'
-              : path === '/course'
-              ? '3'
-              : path === '/video'
-              ? '4'
-              : path === '/workbook'
-              ? '5'
-              : path === '/test'
-              ? '6'
-              : path === '/take'
-              ? '7'
-              : '8',
+                ? '2'
+                : path === '/course'
+                  ? '3'
+                  : path === '/video'
+                    ? '4'
+                    : path === '/workbook'
+                      ? '5'
+                      : path === '/test'
+                        ? '6'
+                        : '7'
           ]}
           items={[
             {
@@ -111,14 +108,6 @@ function LayoutPage({ children }) {
             },
             {
               key: '7',
-              icon: <PriceCheckIcon style={{ fontSize: '16px' }} />,
-              label: language[l].t7,
-              onClick: () => {
-                navigate('/take');
-              },
-            },
-            {
-              key: '8',
               icon: <MapsUgcIcon style={{ fontSize: '16px' }} />,
               label: language[l].t8,
               onClick: () => {
